@@ -4,7 +4,7 @@ require './lib/stat_tracker'
 require './modules/total_score'
 require 'pry'
 
-class StatTrackerTest < Minitest::Test
+class TotalScoreModuleTest < Minitest::Test
 
   def setup
     game_path = './test/dummy_data/dummy_game.csv'
