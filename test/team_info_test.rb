@@ -21,7 +21,7 @@ class TestInfoTest < Minitest::Test
   end
 
   def test_it_reads_all_data
-    assert_equal 15, @team_info.length
+    assert_equal 33, @team_info.length
   end
 
   def test_attributes
