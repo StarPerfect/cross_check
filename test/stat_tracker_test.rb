@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/stat_tracker'
+
+class StatTrackerTest < Minitest::Test
+
+=======
 require 'Minitest/autorun'
 require 'Minitest/pride'
 require './lib/stat_tracker'
@@ -20,4 +28,5 @@ class StatTrackerTest < Minitest::Test
   # def test_stat_tracker_exists
   #   assert_instance_of StatTracker, @stat_tracker
   # end
+>>>>>>> 0d83103004369c060210c3f3670242708699bc42
 end

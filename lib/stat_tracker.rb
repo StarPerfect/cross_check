@@ -1,8 +1,13 @@
 require 'csv'
 require './lib/game'
 require './lib/team_info'
+require './lib/game_teams_stats'
+require './modules/total_score'
 
 class StatTracker
+
+  include TotalScore
+
   attr_reader :games, :game_teams, :team_info
 
   def initialize(args)
@@ -11,18 +16,18 @@ class StatTracker
     @team_info = args[:info]
   end
 
-  def self.from_csv
-    games_data = CSV.read('./test/dummy_data/dummy_game.csv',
+  def self.from_csv(locations)
+    games_data = CSV.read(locations[:games],
       headers: true,
       header_converters: :symbol)
     games = games_data.map {|row| Game.new(row)}
 
-    teams_data = CSV.read('./test/dummy_data/dummy_team_info.csv',
+    teams_data = CSV.read(locations[:teams],
       headers: true,
       header_converters: :symbol)
     team_info = teams_data.map {|row| TeamInfo.new(row)}
 
-    game_teams_stats_data = CSV.read('./test/dummy_data/dummy_game_teams_stats.csv',
+    game_teams_stats_data = CSV.read(locations[:game_teams],
       headers: true,
       header_converters: :symbol)
     game_teams_stats = game_teams_stats_data.map {|row| GameTeamsStats.new(row)}
