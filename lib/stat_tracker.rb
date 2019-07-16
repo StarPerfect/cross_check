@@ -2,9 +2,11 @@ require 'csv'
 require './lib/game'
 require './lib/team_info'
 require './lib/game_teams_stats'
+require './modules/counts_and_averages'
 
 
 class StatTracker
+  include CountsAndAverages
   attr_reader :games, :game_teams, :team_info
 
   def initialize(args)
