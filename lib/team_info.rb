@@ -1,17 +1,17 @@
 class TeamInfo
 
   attr_reader :team_id,
-              :franchiseId,
-              :shortName,
-              :teamName,
+              :franchiseid,
+              :shortname,
+              :teamname,
               :abbreviation,
               :link
 
   def initialize(row)
-    @team_id = row[:team_id]
-    @franchiseId = row[:franchiseId]
-    @shortName = row[:shortName]
-    @teamName = row[:teamName]
+    @team_id = row[:team_id].to_i
+    @franchiseid = row[:franchiseid].to_i
+    @shortname = row[:shortname]
+    @teamname = row[:teamname]
     @abbreviation = row[:abbreviation]
     @link = row[:link]
   end

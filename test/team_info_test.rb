@@ -1,0 +1,35 @@
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/team_info'
+require 'csv'
+
+class TestInfoTest < Minitest::Test
+
+  def setup
+    @teams_data = CSV.read('./test/dummy_data/dummy_team_info.csv',
+      headers: true,
+      header_converters: :symbol)
+
+    @team_info = @teams_data.map {|row| TeamInfo.new(row)}
+
+    @row_1 = @team_info[0]
+  end
+
+  def test_it_exists
+    assert_instance_of TeamInfo, @row_1
+  end
+
+  def test_it_reads_all_data
+    assert_equal 15, @team_info.length
+  end
+
+  def test_attributes
+    assert_equal "NJD", @row_1.abbreviation
+    assert_equal 23, @row_1.franchiseid
+    assert_equal "/api/v1/teams/1", @row_1.link
+    assert_equal "New Jersey", @row_1.shortname
+    assert_equal 1, @row_1.team_id
+    assert_equal "Devils", @row_1.teamname
+  end
+
+end
