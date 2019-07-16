@@ -5,9 +5,10 @@ class StarTracker
 
   def total_score
     total_score = []
-    CSV.foreach('./test/dummy_data/dummy_game.csv', :headers => true, :col_sep => ',') do |row|
+    CSV.foreach(filepath, :headers => true, :col_sep => ',') do |row|
       total_score << row[6].to_i + row[7].to_i
     end
+
     total_score
   end
 

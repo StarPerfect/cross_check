@@ -16,6 +16,7 @@ class StarTrackerTest < Minitest::Test
 
     biggest_blowout = total_score.max - total_score.min
 
+
     assert_equal 7, total_score.max
     assert_equal 1, total_score.min
     assert_equal 6, biggest_blowout
