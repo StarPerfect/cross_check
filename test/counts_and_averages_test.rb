@@ -27,11 +27,12 @@ class CountsAndAveragesTest < Minitest::Test
     assert_equal 5.25, @stat_tracker.average_goals_per_game
   end
 
-  def test_case_name
+  def test_average_goals_by_season
     expected = {
       '20122013' => 5.5,
       '20142015' => 4.5,
       '20162017' => 5.75
     }
+    assert_equal expected, @stat_tracker.average_goals_by_season
   end
 end
