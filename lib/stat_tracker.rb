@@ -22,6 +22,12 @@ class StatTracker
       header_converters: :symbol)
     team_info = teams_data.map {|row| TeamInfo.new(row)}
 
-    StatTracker.new(games: games, team_info: team_info)
+    game_teams_stats_data = CSV.read('./test/dummy_data/dummy_game_teams_stats.csv',
+      headers: true,
+      header_converters: :symbol)
+    game_teams_stats = game_teams_stats_data.map {|row| GameTeamsStats.new(row)}
+
+
+    StatTracker.new(games: games, team_info: team_info, game_teams: game_teams_stats)
   end
 end
