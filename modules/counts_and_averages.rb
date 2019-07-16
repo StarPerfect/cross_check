@@ -20,7 +20,7 @@ module CountsAndAverages
     end
 
     tot_goals.each do |season, goals|
-      tot_goals[season] = goals.to_f / num_games[season]
+      tot_goals[season] = ( goals.to_f / num_games[season] ).round(2)
     end
 
     tot_goals
