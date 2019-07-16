@@ -1,11 +1,13 @@
 require 'csv'
-require './lib/game'
-require './lib/team_info'
-require './lib/game_teams_stats'
-require './modules/game_statistics'
+require_relative '../lib/game'
+require_relative '../lib/team_info'
+require_relative '../lib/game_teams_stats'
+require_relative '../modules/game_statistics'
+require_relative '../modules/corina'
 
 class StatTracker
   include GameStatistics
+ include Corina
 
   attr_reader :games, :game_teams, :team_info
 
