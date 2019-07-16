@@ -1,14 +1,33 @@
 require 'csv'
-require './module/total_score'
+require './lib/game'
+require './lib/team_info'
 
 class StatTracker
+  attr_reader :games, :game_teams, :team_info
 
-  include TotalScore
-
-  def self.from_csv(files)
-    data = {}
-    files.each { |key, val| data[key] = CSV.table(val) }
-    data
+  def initialize(args)
+    @games = args[:games]
+    @game_teams = args[:game_teams]
+    @team_info = args[:info]
   end
 
+  def self.from_csv
+    games_data = CSV.read('./test/dummy_data/dummy_game.csv',
+      headers: true,
+      header_converters: :symbol)
+    games = games_data.map {|row| Game.new(row)}
+
+    teams_data = CSV.read('./test/dummy_data/dummy_team_info.csv',
+      headers: true,
+      header_converters: :symbol)
+    team_info = teams_data.map {|row| TeamInfo.new(row)}
+
+    game_teams_stats_data = CSV.read('./test/dummy_data/dummy_game_teams_stats.csv',
+      headers: true,
+      header_converters: :symbol)
+    game_teams_stats = game_teams_stats_data.map {|row| GameTeamsStats.new(row)}
+
+
+    StatTracker.new(games: games, team_info: team_info, game_teams: game_teams_stats)
+  end
 end
