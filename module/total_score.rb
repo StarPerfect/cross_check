@@ -1,12 +1,10 @@
+require 'csv'
+
 module TotalScore
 
     def total_score
-      total_score = []
-      CSV.foreach(filepath, :headers => true, :col_sep => ',') do |row|
-        total_score << row[6].to_i + row[7].to_i
-      end
-
-      total_score
+      game_table = CSV.table('./dummy_data/dummy_game.csv')
+      total_scores_arr = game_table[:away_goals].zip(game_table[:home_goals]).map(&:sum)
     end
 
     def highest_total_score
