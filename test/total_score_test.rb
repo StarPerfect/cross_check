@@ -13,7 +13,7 @@ class TotalScoreModuleTest < Minitest::Test
 
     locations = {
       games: game_path,
-      teams: team_path,
+      team_info: team_path,
       game_teams: game_teams_path
     }
 
