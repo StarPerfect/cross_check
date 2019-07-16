@@ -20,22 +20,20 @@ class StatTracker
   end
 
   def self.from_csv(locations)
-    games_data = CSV.read(locations[:games],
-      headers: true,
-      header_converters: :symbol)
-    games = games_data.map {|row| Game.new(row)}
-
-    teams_data = CSV.read(locations[:teams],
-      headers: true,
-      header_converters: :symbol)
-    team_info = teams_data.map {|row| TeamInfo.new(row)}
-
-    game_teams_stats_data = CSV.read(locations[:game_teams],
-      headers: true,
-      header_converters: :symbol)
-    game_teams_stats = game_teams_stats_data.map {|row| GameTeamsStats.new(row)}
-
-
-    StatTracker.new(games: games, team_info: team_info, game_teams: game_teams_stats)
+    data = {}
+    locations.each do |key, csv|
+      this_data = CSV.read(locations[key],
+        headers: true,
+        header_converters: :symbol)
+      if key == :games
+        data[key] = this_data.map { |row| Game.new(row) }
+      elsif key == :teams
+        data[key] = this_data.map { |row| TeamInfo.new(row) }
+      elsif key == :game_teams
+        data[key] = this_data.map { |row| GameTeamsStats.new(row) }
+      end
+    end
+    
+    StatTracker.new(data)
   end
 end
