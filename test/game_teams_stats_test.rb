@@ -1,3 +1,4 @@
+require './test/test_helper'
 require 'Minitest/autorun'
 require 'Minitest/pride'
 require_relative '../lib/game_teams_stats'

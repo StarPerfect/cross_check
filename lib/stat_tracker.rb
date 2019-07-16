@@ -2,10 +2,12 @@ require 'csv'
 require './lib/game'
 require './lib/team_info'
 require './lib/game_teams_stats'
+require './modules/float_mods'
 require './modules/counts_and_averages'
 require './modules/total_score'
 
 class StatTracker
+  include FloatMods
   include CountsAndAverages
   include TotalScore
 

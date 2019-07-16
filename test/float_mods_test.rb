@@ -1,3 +1,4 @@
+require './test/test_helper'
 require 'Minitest/autorun'
 require 'Minitest/pride'
 require './lib/stat_tracker'
@@ -21,5 +22,9 @@ class FloatModsTest < Minitest::Test
 
   def test_percentage_home_wins
     assert_equal 58.33, @stat_tracker.percentage_home_wins
+  end
+
+  def test_percentage_visitor_wins
+    assert_equal 41.67, @stat_tracker.percentage_visitor_wins
   end
 end
