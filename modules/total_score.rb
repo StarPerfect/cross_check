@@ -3,13 +3,11 @@ require 'csv'
 module TotalScore
 
     def highest_total_score
-      games.map { |game| game.away_goals + game.home_goals }
-        .max
+      @games.map { |game| game.away_goals + game.home_goals }.max
     end
 
     def lowest_total_score
-      games.map { |game| game.away_goals + game.home_goals }
-        .min
+      @games.map { |game| game.away_goals + game.home_goals }.min
     end
 
     def biggest_blowout
