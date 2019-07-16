@@ -16,7 +16,7 @@ class StatTracker
   def initialize(args)
     @games = args[:games]
     @game_teams = args[:game_teams]
-    @team_info = args[:info]
+    @team_info = args[:team_info]
   end
 
   def self.from_csv(locations)
@@ -27,13 +27,13 @@ class StatTracker
         header_converters: :symbol)
       if key == :games
         data[key] = this_data.map { |row| Game.new(row) }
-      elsif key == :teams
+      elsif key == :team_info
         data[key] = this_data.map { |row| TeamInfo.new(row) }
       elsif key == :game_teams
         data[key] = this_data.map { |row| GameTeamsStats.new(row) }
       end
     end
-    
+
     StatTracker.new(data)
   end
 end

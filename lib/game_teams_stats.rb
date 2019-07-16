@@ -18,7 +18,7 @@ class GameTeamsStats
   def initialize(row)
     @game_id                  = row[:game_id]
     @team_id                  = row[:team_id]
-    @home_or_away             = row[:home_or_away]
+    @home_or_away             = row[:hoa]
     @won                      = row[:won] == "TRUE" ? true : false
     @settled_in               = row[:settled_in]
     @head_coach               = row[:head_coach]
@@ -26,9 +26,9 @@ class GameTeamsStats
     @shots                    = row[:shots].to_i
     @hits                     = row[:hits].to_i
     @pim                      = row[:pim].to_i
-    @power_play_opportunities = row[:power_play_opportunities].to_i
-    @power_play_goals         = row[:power_play_goals].to_i
-    @face_off_win_percentage  = row[:face_off_win_percentage].to_f
+    @power_play_opportunities = row[:powerplayopportunities].to_i
+    @power_play_goals         = row[:powerplaygoals].to_i
+    @face_off_win_percentage  = row[:faceoffwinpercentage].to_f
     @giveaways                = row[:giveaways].to_i
     @takeaways                = row[:takeaways].to_i
   end
