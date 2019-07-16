@@ -7,6 +7,12 @@ class StatTracker
     files.each { |key, val| data[key] = CSV.read(val) }
     data
   end
+
+  def self.from_csv_2(files)
+    data = {}
+    files.each { |key, val| data[key] = CSV.table(val) }
+    data
+  end
 end
 
 game_path = './test/dummy_data/dummy_game.csv'
@@ -19,6 +25,7 @@ files = {
   game_team: game_teams_path
 }
 
-s = StatTracker.from_csv(files)
+stats_1 = StatTracker.from_csv(files)
+stats_2 = StatTracker.from_csv_2(files)
 
 require 'pry';binding.pry
