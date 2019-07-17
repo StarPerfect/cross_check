@@ -5,7 +5,7 @@ class CorinaTest < Minitest::Test
     files = {
       games:      './test/dummy_data/dummy_game.csv',
       team_info:      './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
+      game_teams: './data/game_teams_stats.csv'
     }
     @stat_tracker = StatTracker.from_csv(files)
   end
@@ -22,7 +22,7 @@ class CorinaTest < Minitest::Test
     assert_equal 'Bruins', @stat_tracker.best_fans
   end
 
-  def worst_fans
-    
+  def test_worst_fans
+    assert_equal [], @stat_tracker.worst_fans
   end
 end
