@@ -51,4 +51,19 @@ module AverageScore
     highest_away = away_team_goals.max_by {|team, goal_avg| goal_avg}.first
     @team_info.find { |team| team.team_id == highest_away}.team_name
   end
+
+  def highest_scoring_home_team
+    highest_home = home_team_goals.max_by {|team, goal_avg| goal_avg}.first
+    @team_info.find { |team| team.team_id == highest_home}.team_name
+  end
+
+  def lowest_scoring_visitor
+    lowest_away = away_team_goals.min_by {|team, goal_avg| goal_avg}.first
+    @team_info.find { |team| team.team_id == lowest_away}.team_name
+  end
+
+  def lowest_scoring_home_team
+    lowest_home = home_team_goals.min_by {|team, goal_avg| goal_avg}.first
+    @team_info.find { |team| team.team_id == lowest_home}.team_name
+  end
 end

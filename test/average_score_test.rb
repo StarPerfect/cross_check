@@ -7,8 +7,6 @@ require 'pry'
 
 class AverageScoreModuleTest < Minitest::Test
 
-  include AverageScore
-
   def setup
     game_path = './test/dummy_data/dummy_game.csv'
     team_path = './test/dummy_data/dummy_team_info.csv'
