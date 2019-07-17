@@ -8,8 +8,8 @@ class TeamInfo
               :link
 
   def initialize(row)
-    @team_id = row[:team_id].to_i
-    @franchiseid = row[:franchiseid].to_i
+    @team_id = row[:team_id]
+    @franchiseid = row[:franchiseid]
     @shortname = row[:shortname]
     @teamname = row[:teamname]
     @abbreviation = row[:abbreviation]

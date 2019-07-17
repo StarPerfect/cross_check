@@ -15,6 +15,6 @@ class CorinaTest < Minitest::Test
   end
 
   def test_winningest_team
-    assert_equal , @stat_tracker.winningest_team
+    assert_equal 'Bruins', @stat_tracker.winningest_team
   end
 end
