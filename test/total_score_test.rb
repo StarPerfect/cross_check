@@ -1,8 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/stat_tracker'
-require './modules/total_score'
-require 'pry'
+require './test/test_helper'
 
 class TotalScoreModuleTest < Minitest::Test
 
