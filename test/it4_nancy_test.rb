@@ -8,8 +8,8 @@ require 'pry'
 class It4NancyTest < Minitest::Test
   def setup
     files = {
-      games: './test/dummy_data/dummy_game.csv',
-      team_info: './test/dummy_data/dummy_team_info.csv',
+      games: './test/dummy_data/dummy_game_3.csv',
+      teams: './test/dummy_data/dummy_team_info.csv',
       game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
     }
 
@@ -17,14 +17,23 @@ class It4NancyTest < Minitest::Test
   end
 
   def test_team_info
-    binding.pry
+    expected = {
+      "team_id" => "6",
+      "franchise_id" => "6",
+      "short_name" => "Boston",
+      "team_name" => "Bruins",
+      "abbreviation" => "BOS",
+      "link" => "/api/v1/teams/6"
+    }
+    assert_equal expected, @stat_tracker.team_info("6")
   end
 
-  # def test_best_season
-  # end
+  def test_best_season
+    assert_equal "20132014", @stat_tracker.best_season("6")
+  end
 
-  # def test_worst_season
-  #
-  # end
+  def test_worst_season
+    assert_equal "20142015", @stat_tracker.worst_season("6")
+  end
 
 end

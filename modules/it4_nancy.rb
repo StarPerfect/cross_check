@@ -1,34 +1,56 @@
 module It4Nancy
-  def team_total_games
-    each_total_games = Hash.new(0)
-    @game_teams.each { |team| each_total_games[team.team_id] += 1}
-    each_total_games
-  end
-
-  def wins_per_team
-    team_wins = Hash.new(0)
-    @game_teams.each do |team|
-      if team.won
-       team_wins[team.team_id] += 1
-      end
-    end
-    team_wins
-  end
 
   def team_info(id)
-    hash = {}
-    team = @team_info.select { |t| t.team_id == id }
-    team.instance_variables.each {|var| hash[var.to_s.delete("@")] = team.instance_variable_get(var) }
+    hash = Hash.new(0)
+    team = @teams.select { |team| team.team_id == id }[0]
+    team.instance_variables
+      .each do |var|
+        hash[var.to_s.delete("@")] = team.instance_variable_get(var)
+      end
     hash
   end
 
-  def best_season(id)
-    wins_per_team.each do |team, wins|
-     wins_per_team[team] = (wins.to_i / team_total_games[team])
-    end
+  def total_games_per_team(id)
+    @games.select { |game| game.away_team_id == id || game.home_team_id == id }
+  end
 
-    answer = wins_per_team.max_by{ |key, value| value }
-    answer
-    @games.find{ |team| team.team_id == answer[0] }.season
+  def total_games_per_team_per_season(id)
+    hash = Hash.new(0)
+    total_games_per_team(id).each do |game|
+      hash[game.season] += 1
+    end
+    hash
+  end
+
+  def total_wins_per_team_per_season(id)
+    hash = Hash.new(0)
+    total_games_per_team(id).each do |game|
+      if game.away_team_id == id && (game.away_goals > game.home_goals)
+        hash[game.season] += 1
+      elsif game.home_team_id == id && (game.home_goals > game.away_goals)
+        hash[game.season] += 1
+      end
+    end
+    hash
+  end
+
+  def win_percentage(id)
+    wins_arr = total_wins_per_team_per_season(id).map {|k,v| v}
+    total_arr = total_games_per_team_per_season(id).map {|k,v| v}
+    wins_arr.zip(total_arr).map {|arr| (arr[0]/arr[1].to_f * 100).round(2) }
+  end
+
+  def win_percentage_per_season(id)
+    seasons = total_games_per_team_per_season(id).keys
+    percentages = win_percentage(id)
+    Hash[seasons.zip(percentages)]
+  end
+
+  def best_season(id)
+    win_percentage_per_season(id).max_by {|k,v| v}[0]
+  end
+
+  def worst_season(id)
+    win_percentage_per_season(id).min_by {|k,v| v}[0]
   end
 end
