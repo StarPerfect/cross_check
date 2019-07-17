@@ -1,8 +1,5 @@
 require './test/test_helper'
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/team_info'
-require 'csv'
+
 
 class TestInfoTest < Minitest::Test
 
