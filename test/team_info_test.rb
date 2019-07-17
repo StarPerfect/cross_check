@@ -18,16 +18,16 @@ class TestInfoTest < Minitest::Test
   end
 
   def test_it_reads_all_data
-    assert_equal 15, @team_info.length
+    assert_equal 33, @team_info.length
   end
 
   def test_attributes
     assert_equal "NJD", @row_1.abbreviation
-    assert_equal 23, @row_1.franchiseid
+    assert_equal '23', @row_1.franchise_id
     assert_equal "/api/v1/teams/1", @row_1.link
-    assert_equal "New Jersey", @row_1.shortname
-    assert_equal 1, @row_1.team_id
-    assert_equal "Devils", @row_1.teamname
+    assert_equal "New Jersey", @row_1.short_name
+    assert_equal '1', @row_1.team_id
+    assert_equal "Devils", @row_1.team_name
   end
 
 end
