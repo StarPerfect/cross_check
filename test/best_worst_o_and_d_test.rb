@@ -16,16 +16,39 @@ class BestWorstOAndDTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(files)
   end
 
-  # Name of the team with the highest average number of goals scored
-  # per game across all seasons.
-  def test_best_offense
-    assert_equal
+  def test_team_total_games
+    expected = {
+      "3" => 5,
+      "5" => 3,
+      "6" => 8
+    }
+    assert_equal expected, @stat_tracker.team_total_games
   end
 
-  # Name of the team with the lowest average number of goals scored
-  # per game across all seasons.
-  def test_worst_offense
+  def test_team_total_goals
+    expected = {
+      "3" => 10,
+      "6" => 27,
+      "5" => 2
+    }
+    assert_equal expected, @stat_tracker.team_total_goals
+  end
 
+  def test_team_avg_goals_per_game
+    expected = {
+      "3" => 2.0,
+      "6" => 3.375,
+      "5" => 0.667
+    }
+    assert_equal expected, @stat_tracker.team_avg_goals_per_game
+  end
+
+  def test_best_offense
+    assert_equal "Bruins", @stat_tracker.best_offense
+  end
+
+  def test_worst_offense
+    assert_equal "Penguins", @stat_tracker.worst_offense
   end
 
   # Name of the team with the lowest average number of goals
