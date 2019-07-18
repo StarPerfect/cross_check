@@ -16,7 +16,6 @@ class CorinaTest < Minitest::Test
 
   def test_winningest_team
     assert_equal 'Blackhawks', @stat_tracker.winningest_team
-    require 'pry'; binding.pry
   end
 
   def test_best_fans
@@ -24,6 +23,6 @@ class CorinaTest < Minitest::Test
   end
 
   def test_worst_fans
-    assert_equal [], @stat_tracker.worst_fans
+    assert_equal ['28'], @stat_tracker.worst_fans
   end
 end
