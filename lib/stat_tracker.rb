@@ -7,7 +7,7 @@ require_relative '../modules/corina'
 
 class StatTracker
   include GameStatistics
- include Corina
+  include Corina
 
   attr_reader :games, :game_teams, :team_info
 

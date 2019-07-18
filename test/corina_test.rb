@@ -5,7 +5,7 @@ class CorinaTest < Minitest::Test
     files = {
       games:      './test/dummy_data/dummy_game.csv',
       team_info:      './test/dummy_data/dummy_team_info.csv',
-      game_teams: './data/game_teams_stats.csv'
+      game_teams: './test/dummy_data/dummy_game_teams_stats0.csv'
     }
     @stat_tracker = StatTracker.from_csv(files)
   end
@@ -15,11 +15,12 @@ class CorinaTest < Minitest::Test
   end
 
   def test_winningest_team
-    assert_equal 'Bruins', @stat_tracker.winningest_team
+    assert_equal 'Blackhawks', @stat_tracker.winningest_team
+    require 'pry'; binding.pry
   end
 
   def test_best_fans
-    assert_equal 'Bruins', @stat_tracker.best_fans
+    assert_equal 'Blackhawks', @stat_tracker.best_fans
   end
 
   def test_worst_fans
