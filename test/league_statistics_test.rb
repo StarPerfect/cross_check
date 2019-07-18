@@ -1,16 +1,10 @@
 require './test/test_helper'
-require 'Minitest/autorun'
-require 'Minitest/pride'
-require './lib/stat_tracker'
-require './modules/best_worst_o_and_d'
 
-class BestWorstOAndDTest < Minitest::Test
-  include BestWorstOAndD
-
+class LeagueStatisticsTest < Minitest::Test
   def setup
     files = {
       games:      './test/dummy_data/dummy_game.csv',
-      team_info:  './test/dummy_data/dummy_team_info.csv',
+      teams:  './test/dummy_data/dummy_team_info.csv',
       game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
     }
     @stat_tracker = StatTracker.from_csv(files)
@@ -109,8 +103,67 @@ class BestWorstOAndDTest < Minitest::Test
     assert_equal "Bruins", @stat_tracker.best_defense
   end
 
-
   def test_worst_defense
     assert_equal "Flames", @stat_tracker.worst_defense
+  end
+
+  def test_highest_scoring_visitor
+    assert_equal "Bruins", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "Bruins", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_lowest_scoring_visitor
+    assert_equal "Penguins", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_lowest_scoring_home_team
+    assert_equal "Penguins", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_count_of_teams
+    files = {
+      games:      './test/dummy_data/dummy_game.csv',
+      teams:      './test/dummy_data/dummy_team_info.csv',
+      game_teams: './test/dummy_data/dummy_game_teams_stats0.csv'
+    }
+    stat_tracker = StatTracker.from_csv(files)
+
+    assert_equal 33, stat_tracker.count_of_teams
+  end
+
+  def test_winningest_team
+    files = {
+      games:      './test/dummy_data/dummy_game.csv',
+      teams:      './test/dummy_data/dummy_team_info.csv',
+      game_teams: './test/dummy_data/dummy_game_teams_stats0.csv'
+    }
+    stat_tracker = StatTracker.from_csv(files)
+
+    assert_equal 'Blackhawks', stat_tracker.winningest_team
+  end
+
+  def test_best_fans
+    files = {
+      games:      './test/dummy_data/dummy_game.csv',
+      teams:      './test/dummy_data/dummy_team_info.csv',
+      game_teams: './test/dummy_data/dummy_game_teams_stats0.csv'
+    }
+    stat_tracker = StatTracker.from_csv(files)
+
+    assert_equal 'Blackhawks', stat_tracker.best_fans
+  end
+
+  def test_worst_fans
+    files = {
+      games:      './test/dummy_data/dummy_game.csv',
+      teams:      './test/dummy_data/dummy_team_info.csv',
+      game_teams: './test/dummy_data/dummy_game_teams_stats0.csv'
+    }
+    stat_tracker = StatTracker.from_csv(files)
+
+    assert_equal ['Lightning', 'Penguins', 'Sharks'], stat_tracker.worst_fans
   end
 end
