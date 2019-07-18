@@ -55,5 +55,12 @@ module Corina
     @team_info.find{ |team| team.team_id == answer[0] }.team_name
   end
 
+  def get_team_name(id)
+    @team_info.find { |team| team.team_id == id }.team_name
+  end
 
+  def worst_fans
+    crap_fans = @team_info.find_all{ |team| home_wins_per_team[team.team_id] < away_wins_per_team[team.team_id] }
+    crap_fans.map{|team| get_team_name(team.team_id )}
+  end
 end
