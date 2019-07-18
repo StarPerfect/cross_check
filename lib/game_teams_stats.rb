@@ -19,7 +19,7 @@ class GameTeamsStats
     @game_id                  = row[:game_id]
     @team_id                  = row[:team_id]
     @home_or_away             = row[:hoa]
-    @won                      = row[:won] == "TRUE" ? true : false
+    @won                      = row[:won] == "TRUE"
     @settled_in               = row[:settled_in]
     @head_coach               = row[:head_coach]
     @goals                    = row[:goals].to_i

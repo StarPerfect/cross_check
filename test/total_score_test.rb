@@ -1,10 +1,6 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/stat_tracker'
-require './modules/total_score'
-require 'pry'
+require './test/test_helper'
 
-class StatTrackerTest < Minitest::Test
+class TotalScoreModuleTest < Minitest::Test
 
   def setup
     game_path = './test/dummy_data/dummy_game.csv'
@@ -13,7 +9,7 @@ class StatTrackerTest < Minitest::Test
 
     locations = {
       games: game_path,
-      teams: team_path,
+      team_info: team_path,
       game_teams: game_teams_path
     }
 

@@ -1,8 +1,5 @@
 require './test/test_helper'
-require 'minitest/autorun'
-require 'minitest/pride'
-require './lib/team_info'
-require 'csv'
+
 
 class TestInfoTest < Minitest::Test
 
@@ -21,7 +18,7 @@ class TestInfoTest < Minitest::Test
   end
 
   def test_it_reads_all_data
-    assert_equal 15, @team_info.length
+    assert_equal 33, @team_info.length
   end
 
   def test_attributes
