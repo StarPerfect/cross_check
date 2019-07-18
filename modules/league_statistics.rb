@@ -1,19 +1,4 @@
 module LeagueStatistics
-  def team_total_games
-    each_total_games = Hash.new(0)
-    @game_teams.each { |game_team| each_total_games[game_team.team_id] += 1}
-    each_total_games
-  end
-
-  def team_total_games_2
-    each_total_games = Hash.new(0)
-    @games.each do |game|
-      each_total_games[game.home_team_id] += 1
-      each_total_games[game.away_team_id] += 1
-    end
-    each_total_games
-  end
-
   def team_total_goals
     team_goals = Hash.new(0)
     @game_teams.each { |team| team_goals[team.team_id] += team.goals }
@@ -23,7 +8,7 @@ module LeagueStatistics
   def team_avg_goals_per_game
     goals_hash = team_total_goals
     goals_hash.each do |team, goals|
-      goals_hash[team] = (goals.to_f / team_total_games[team]).round(3)
+      goals_hash[team] = (goals.to_f / team_total_games_from_games[team]).round(3)
     end
     goals_hash
   end
@@ -54,7 +39,7 @@ module LeagueStatistics
     team_avg_goals = Hash.new
     team_home_goals_allowed.each do |team, goals|
       total_goals = goals + team_away_goals_allowed[team]
-      team_avg_goals[team] = total_goals.to_f / team_total_games_2[team]
+      team_avg_goals[team] = total_goals.to_f / team_total_games_from_game_teams[team]
     end
     team_avg_goals
   end
@@ -141,12 +126,6 @@ module LeagueStatistics
     @teams.count
   end
 
-  def team_total_games
-    each_total_games = Hash.new(0)
-    @game_teams.each { |team| each_total_games[team.team_id] += 1}
-    each_total_games
-  end
-
   def wins_per_team
     team_wins = Hash.new(0)
     @game_teams.each do |team|
@@ -159,7 +138,7 @@ module LeagueStatistics
 
   def winningest_team
     wins_per_team.each do |team, wins|
-      wins_per_team[team] = (wins.to_i / team_total_games[team])
+      wins_per_team[team] = (wins.to_i / team_total_games_from_games[team])
     end
     answer = wins_per_team.max_by{ |key, value| value }
     @teams.find{ |team| team.team_id == answer[0] }.team_name

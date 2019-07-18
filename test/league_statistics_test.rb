@@ -10,27 +10,6 @@ class LeagueStatisticsTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(files)
   end
 
-  def test_team_total_games
-    expected = {
-      "3" => 5,
-      "5" => 3,
-      "6" => 8
-    }
-    assert_equal expected, @stat_tracker.team_total_games
-  end
-
-  def test_team_total_games_2
-    expected = {
-      '3'  => 4,
-      '6'  => 4,
-      '20' => 4,
-      '24' => 4,
-      '16' => 4,
-      '14' => 4
-    }
-    assert_equal expected, @stat_tracker.team_total_games_2
-  end
-
   def test_team_total_goals
     expected = {
       "3" => 10,
@@ -47,12 +26,6 @@ class LeagueStatisticsTest < Minitest::Test
       "5" => 0.667
     }
     assert_equal expected, @stat_tracker.team_avg_goals_per_game
-  end
-
-  def test_get_team_name
-    assert_equal "Bruins", @stat_tracker.get_team_name("6")
-    assert_equal "Flames", @stat_tracker.get_team_name("20")
-    assert_equal "Rangers", @stat_tracker.get_team_name("3")
   end
 
   def test_best_offense
