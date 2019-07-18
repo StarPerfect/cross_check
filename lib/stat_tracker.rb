@@ -3,11 +3,15 @@ require_relative '../lib/game'
 require_relative '../lib/team_info'
 require_relative '../lib/game_teams_stats'
 require_relative '../modules/game_statistics'
+require_relative '../modules/best_worst_o_and_d'
+require_relative '../modules/fenton_it4'
 require_relative '../modules/corina'
 
 class StatTracker
   include GameStatistics
- include Corina
+  include BestWorstOAndD
+  include FentonIt4
+  include Corina
 
   attr_reader :games, :game_teams, :team_info
 

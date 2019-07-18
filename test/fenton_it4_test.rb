@@ -53,4 +53,8 @@ class FentonIt4Test < Minitest::Test
   def test_rival
     assert_equal 'Lightning', @stat_tracker.rival('6')
   end
+
+  def test_biggest_team_blowout
+    assert_equal 5, @stat_tracker.biggest_team_blowout('6')
+  end
 end
