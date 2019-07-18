@@ -25,6 +25,18 @@ class BestWorstOAndDTest < Minitest::Test
     assert_equal expected, @stat_tracker.team_total_games
   end
 
+  def test_team_total_games_2
+    expected = {
+      '3'  => 4,
+      '6'  => 4,
+      '20' => 4,
+      '24' => 4,
+      '16' => 4,
+      '14' => 4
+    }
+    assert_equal expected, @stat_tracker.team_total_games_2
+  end
+
   def test_team_total_goals
     expected = {
       "3" => 10,
@@ -43,6 +55,12 @@ class BestWorstOAndDTest < Minitest::Test
     assert_equal expected, @stat_tracker.team_avg_goals_per_game
   end
 
+  def test_get_team_name
+    assert_equal "Bruins", @stat_tracker.get_team_name("6")
+    assert_equal "Flames", @stat_tracker.get_team_name("20")
+    assert_equal "Rangers", @stat_tracker.get_team_name("3")
+  end
+
   def test_best_offense
     assert_equal "Bruins", @stat_tracker.best_offense
   end
@@ -51,15 +69,48 @@ class BestWorstOAndDTest < Minitest::Test
     assert_equal "Penguins", @stat_tracker.worst_offense
   end
 
-  # Name of the team with the lowest average number of goals
-  # allowed per game across all seasons.
-  def test_best_defense
-
+  def test_team_home_goals_allowed
+    expected = {
+      '3'  => 5,
+      '6'  => 4,
+      '20' => 8,
+      '24' => 4,
+      '16' => 4,
+      '14' => 5
+    }
+    assert_equal expected, @stat_tracker.team_home_goals_allowed
   end
 
-  # Name of the team with the highest average number of goals
-  # allowed per game across all seasons.
-  def test_worst_defense
+  def test_team_away_goals_allowed
+    expected = {
+      '3'  => 8,
+      '6'  => 5,
+      '20' => 6,
+      '24' => 5,
+      '16' => 5,
+      '14' => 4
+    }
+    assert_equal expected, @stat_tracker.team_away_goals_allowed
+  end
 
+  def test_team_avg_goals_allowed
+    expected = {
+      '3'  => 3.25,
+      '6'  => 2.25,
+      '20' => 3.5,
+      '24' => 2.25,
+      '16' => 2.25,
+      '14' => 2.25
+    }
+    assert_equal expected, @stat_tracker.team_avg_goals_allowed
+  end
+
+  def test_best_defense
+    assert_equal "Bruins", @stat_tracker.best_defense
+  end
+
+
+  def test_worst_defense
+    assert_equal "Flames", @stat_tracker.worst_defense
   end
 end
