@@ -4,7 +4,7 @@ class FentonIt4Test < Minitest::Test
   def setup
     files = {
       games:      './test/dummy_data/dummy_game_2.csv',
-      team_info:  './test/dummy_data/dummy_team_info.csv',
+      teams:  './test/dummy_data/dummy_team_info.csv',
       game_teams: './test/dummy_data/dummy_gt2.csv'
     }
     @stat_tracker = StatTracker.from_csv(files)
