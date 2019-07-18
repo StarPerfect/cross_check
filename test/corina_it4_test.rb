@@ -5,12 +5,12 @@ class CorinaIt4Test < Minitest::Test
     files = {
       games:      './test/dummy_data/dummy_game.csv',
       team_info:      './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_game_teams_stats0.csv'
+      game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
     }
     @stat_tracker = StatTracker.from_csv(files)
   end
 
   def test_average_win_percentage
-    assert_equal @stat_tracker.average_win_percentage('Kings')
+    assert_equal 87.5, @stat_tracker.average_win_percentage('Bruins')
   end
 end

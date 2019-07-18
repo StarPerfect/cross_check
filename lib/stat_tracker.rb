@@ -7,6 +7,7 @@ require_relative '../modules/best_worst_o_and_d'
 require_relative '../modules/fenton_it4'
 require_relative '../modules/corina'
 require_relative '../modules/average_score'
+require_relative '../modules/corina_it4'
 
 class StatTracker
   include GameStatistics
@@ -14,6 +15,7 @@ class StatTracker
   include FentonIt4
   include Corina
   include AverageScore
+  include CorinaIt4
 
   attr_reader :games, :game_teams, :team_info
 
