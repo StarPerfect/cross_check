@@ -1,8 +1,4 @@
 require './test/test_helper'
-require 'Minitest/autorun'
-require 'Minitest/pride'
-require 'csv'
-require_relative '../lib/game_teams_stats'
 
 class GameTeamsStatsTest < Minitest::Test
   def setup
