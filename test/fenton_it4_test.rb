@@ -57,4 +57,8 @@ class FentonIt4Test < Minitest::Test
   def test_biggest_team_blowout
     assert_equal 5, @stat_tracker.biggest_team_blowout('6')
   end
+
+  def test_worst_loss
+    assert_equal 3, @stat_tracker.worst_loss('6')
+  end
 end

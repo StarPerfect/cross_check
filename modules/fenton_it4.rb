@@ -58,4 +58,18 @@ module FentonIt4
     end
     max_blowout
   end
+
+  def worst_loss(id)
+    worst = 0
+    @games.each do |game|
+      if game.home_team_id == id && game.home_goals < game.away_goals
+        diff = game.away_goals - game.home_goals
+        worst = diff if diff > worst
+      elsif game.away_team_id == id && game.away_goals < game.home_goals
+        diff = game.home_goals - game.away_goals
+        worst = diff if diff > worst
+      end
+    end
+    worst
+  end
 end
