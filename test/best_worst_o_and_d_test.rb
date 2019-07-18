@@ -55,6 +55,12 @@ class BestWorstOAndDTest < Minitest::Test
     assert_equal expected, @stat_tracker.team_avg_goals_per_game
   end
 
+  def test_get_team_name
+    assert_equal "Bruins", @stat_tracker.get_team_name("6")
+    assert_equal "Flames", @stat_tracker.get_team_name("20")
+    assert_equal "Rangers", @stat_tracker.get_team_name("3")
+  end
+
   def test_best_offense
     assert_equal "Bruins", @stat_tracker.best_offense
   end
@@ -98,15 +104,13 @@ class BestWorstOAndDTest < Minitest::Test
     }
     assert_equal expected, @stat_tracker.team_avg_goals_allowed
   end
-  # Name of the team with the lowest average number of goals
-  # allowed per game across all seasons.
-  def test_best_defense
 
+  def test_best_defense
+    assert_equal "Bruins", @stat_tracker.best_defense
   end
 
-  # Name of the team with the highest average number of goals
-  # allowed per game across all seasons.
-  def test_worst_defense
 
+  def test_worst_defense
+    assert_equal "Flames", @stat_tracker.worst_defense
   end
 end

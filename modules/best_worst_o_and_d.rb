@@ -14,6 +14,10 @@ module BestWorstOAndD
     each_total_games
   end
 
+  def get_team_name(id)
+    @team_info.find { |team| team.team_id == id }.team_name
+  end
+
   def team_total_goals
     team_goals = Hash.new(0)
     @game_teams.each { |team| team_goals[team.team_id] += team.goals }
@@ -29,13 +33,13 @@ module BestWorstOAndD
   end
 
   def best_offense
-    best_o = team_avg_goals_per_game.max_by {|team, goal_avg| goal_avg}.first
-    @team_info.find { |team| team.team_id == best_o}.team_name
+    best_o_id = team_avg_goals_per_game.max_by {|team, goal_avg| goal_avg}.first
+    get_team_name(best_o_id)
   end
 
   def worst_offense
-    worst_o = team_avg_goals_per_game.min_by {|team, goal_avg| goal_avg}.first
-    @team_info.find { |team| team.team_id == worst_o}.team_name
+    worst_o_id = team_avg_goals_per_game.min_by {|team, goal_avg| goal_avg}.first
+    get_team_name(worst_o_id)
   end
 
   def team_home_goals_allowed
@@ -57,5 +61,15 @@ module BestWorstOAndD
       team_avg_goals[team] = total_goals.to_f / team_total_games_2[team]
     end
     team_avg_goals
+  end
+
+  def best_defense
+    best_d_id = team_avg_goals_allowed.min_by { |team, avg_goals| avg_goals }.first
+    get_team_name(best_d_id)
+  end
+
+  def worst_defense
+    worst_d_id = team_avg_goals_allowed.max_by { |team, avg_goals| avg_goals }.first
+    get_team_name(worst_d_id)
   end
 end
