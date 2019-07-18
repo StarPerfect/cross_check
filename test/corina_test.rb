@@ -23,6 +23,6 @@ class CorinaTest < Minitest::Test
   end
 
   def test_worst_fans
-    assert_equal ['28'], @stat_tracker.worst_fans
+    assert_equal ['Lightning', 'Penguins', 'Sharks'], @stat_tracker.worst_fans
   end
 end
