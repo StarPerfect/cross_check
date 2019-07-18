@@ -1,9 +1,9 @@
 module StatHelpers
   def get_team_name(id)
-    @team_info.find { |team| team.team_id == id }.team_name
+    @teams.find { |team| team.team_id == id }.team_name
   end
 
   def get_team_id_from_name(name)
-  @team_info.find{ |team| team.team_name == name }.team_id
+  @teams.find{ |team| team.team_name == name }.team_id
   end
 end

@@ -13,12 +13,12 @@ class StatTracker
   include StatHelpers
   include FentonIt4
 
-  attr_reader :games, :game_teams, :team_info
+  attr_reader :games, :game_teams, :teams
 
   def initialize(args)
     @games = args[:games]
     @game_teams = args[:game_teams]
-    @team_info = args[:team_info]
+    @teams = args[:teams]
   end
 
   def self.from_csv(locations)
@@ -29,7 +29,7 @@ class StatTracker
         header_converters: :symbol)
       if key == :games
         data[key] = this_data.map { |row| Game.new(row) }
-      elsif key == :team_info
+      elsif key == :teams
         data[key] = this_data.map { |row| TeamInfo.new(row) }
       elsif key == :game_teams
         data[key] = this_data.map { |row| GameTeamsStats.new(row) }

@@ -119,26 +119,26 @@ module LeagueStatistics
 
   def highest_scoring_visitor
     highest_away = away_team_avg_goals_per_game.max_by {|team, goal_avg| goal_avg}.first
-    @team_info.find { |team| team.team_id == highest_away}.team_name
+    @teams.find { |team| team.team_id == highest_away}.team_name
   end
 
   def highest_scoring_home_team
     highest_home = home_team_avg_goals_per_game.max_by {|team, goal_avg| goal_avg}.first
-    @team_info.find { |team| team.team_id == highest_home}.team_name
+    @teams.find { |team| team.team_id == highest_home}.team_name
   end
 
   def lowest_scoring_visitor
     lowest_away = away_team_avg_goals_per_game.min_by {|team, goal_avg| goal_avg}.first
-    @team_info.find { |team| team.team_id == lowest_away}.team_name
+    @teams.find { |team| team.team_id == lowest_away}.team_name
   end
 
   def lowest_scoring_home_team
     lowest_home = home_team_avg_goals_per_game.min_by {|team, goal_avg| goal_avg}.first
-    @team_info.find { |team| team.team_id == lowest_home}.team_name
+    @teams.find { |team| team.team_id == lowest_home}.team_name
   end
 
   def count_of_teams
-    @team_info.count
+    @teams.count
   end
 
   def team_total_games
@@ -162,7 +162,7 @@ module LeagueStatistics
       wins_per_team[team] = (wins.to_i / team_total_games[team])
     end
     answer = wins_per_team.max_by{ |key, value| value }
-    @team_info.find{ |team| team.team_id == answer[0] }.team_name
+    @teams.find{ |team| team.team_id == answer[0] }.team_name
   end
 
   def home_wins_per_team
@@ -190,11 +190,11 @@ module LeagueStatistics
       home_wins_per_team[team] = (wins - away_wins_per_team[team])
     end
     answer = home_wins_per_team.max_by{ |key, value| value }
-    @team_info.find{ |team| team.team_id == answer[0] }.team_name
+    @teams.find{ |team| team.team_id == answer[0] }.team_name
   end
 
   def worst_fans
-    crap_fans = @team_info.find_all{ |team| home_wins_per_team[team.team_id] < away_wins_per_team[team.team_id] }
+    crap_fans = @teams.find_all{ |team| home_wins_per_team[team.team_id] < away_wins_per_team[team.team_id] }
     crap_fans.map{|team| get_team_name(team.team_id )}
   end
 end
