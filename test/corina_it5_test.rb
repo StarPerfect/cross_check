@@ -13,4 +13,8 @@ class CorinaIt5Test < Minitest::Test
   def test_most_hits
     assert_equal 'Bruins', @stat_tracker.most_hits
   end
+
+  def test_fewest_hits
+    assert_equal '', @stat_tracker.fewest_hits
+  end
 end
