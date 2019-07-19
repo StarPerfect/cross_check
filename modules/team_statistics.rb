@@ -49,13 +49,9 @@ module TeamStatistics
     win_percentage_per_season(id).min_by {|k,v| v}[0]
   end
 
-  def get_team_id_from_name(name)
-    @teams.find{ |team| team.team_name == name }.team_id
-  end
-
   def average_win_percentage(team)
     id = get_team_id_from_name(team)
-    (wins_per_team[id].to_f / team_total_games[id] * 100).round(2)
+    (wins_per_team[id].to_f / team_total_games_from_games[id] * 100).round(2)
   end
 
   def most_goals_scored(team)
