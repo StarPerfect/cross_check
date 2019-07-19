@@ -7,6 +7,7 @@ require_relative '../modules/league_statistics'
 require_relative '../modules/stat_helpers'
 require_relative '../modules/fenton_it4'
 require_relative '../modules/corina_it4'
+require_relative '../modules/corina_it5'
 
 class StatTracker
   include GameStatistics
@@ -14,6 +15,7 @@ class StatTracker
   include StatHelpers
   include FentonIt4
   include CorinaIt4
+  include CorinaIt5
 
   attr_reader :games, :game_teams, :teams
 
