@@ -189,7 +189,11 @@ class TeamStatisticsTest < Minitest::Test
     }
 
     stat_tracker = StatTracker.from_csv(files)
+<<<<<<< Updated upstream
     
+=======
+
+>>>>>>> Stashed changes
     expected = {
       'Rangers'  => 0.75,
       'Penguins'  => 1.0,
