@@ -34,16 +34,12 @@ module NancyIt4
     hash
   end
 
-  def win_percentage(id)
-    wins_arr = total_wins_per_team_per_season(id).map {|k,v| v}
-    total_arr = total_games_per_team_per_season(id).map {|k,v| v}
-    wins_arr.zip(total_arr).map {|arr| (arr[0]/arr[1].to_f * 100).round(2) }
-  end
-
   def win_percentage_per_season(id)
-    seasons = total_games_per_team_per_season(id).keys
-    percentages = win_percentage(id)
-    Hash[seasons.zip(percentages)]
+    wins = total_wins_per_team_per_season(id)
+    totals = total_games_per_team_per_season(id)
+    totals.each do |season, total|
+      totals[season] = (wins[season] / total.to_f * 100).round(2)
+    end
   end
 
   def best_season(id)
