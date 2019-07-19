@@ -17,6 +17,18 @@ class NancyIt5Test < Minitest::Test
   end
 
   def test_winningest_coach
-    binding.pry
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
+  end
+
+  def test_worst_coach
+    assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
+  end
+
+  def test_most_accurate_team
+    assert_equal "Rangers", @stat_tracker.most_accurate_team("20122013")
+  end
+
+  def test_least_accurate_team
+    assert_equal "Bruins", @stat_tracker.least_accurate_team("20122013")
   end
 end

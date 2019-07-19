@@ -13,7 +13,7 @@ module StatHelpers
     each_total_games
   end
 
-  def team_total_games_from_game_teams
+  def team_total_games_from_games_teams
     each_total_games = Hash.new(0)
     @games.each do |game|
       each_total_games[game.home_team_id] += 1

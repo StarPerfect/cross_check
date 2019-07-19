@@ -6,12 +6,15 @@ require_relative '../modules/game_statistics'
 require_relative '../modules/league_statistics'
 require_relative '../modules/team_statistics'
 require_relative '../modules/stat_helpers'
+require_relative '../modules/nancy_it5'
+
 
 class StatTracker
   include GameStatistics
   include LeagueStatistics
   include TeamStatistics
   include StatHelpers
+  include NancyIt5
 
   attr_reader :games, :game_teams, :teams
 
