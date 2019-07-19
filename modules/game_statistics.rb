@@ -18,7 +18,7 @@ module GameStatistics
         home_wins += 1
       end
     end
-    ((home_wins.to_f / @games.count.to_f) * 100).round(2)
+    (home_wins.to_f / @games.count.to_f).round(2)
   end
 
   def percentage_visitor_wins
@@ -28,7 +28,7 @@ module GameStatistics
         visitor_wins += 1
       end
     end
-    ((visitor_wins.to_f / @games.count.to_f) * 100).round(2)
+    (visitor_wins.to_f / @games.count.to_f).round(2)
   end
 
   def count_of_games_by_season
@@ -53,7 +53,7 @@ module GameStatistics
     tot_goals.each do |season, goals|
       tot_goals[season] = ( goals.to_f / num_games[season] ).round(2)
     end
-    
+
     tot_goals
   end
 end
