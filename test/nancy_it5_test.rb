@@ -31,4 +31,32 @@ class NancyIt5Test < Minitest::Test
   def test_least_accurate_team
     assert_equal "Bruins", @stat_tracker.least_accurate_team("20122013")
   end
+
+  def test_total_games_per_season
+    assert_equal 8, @stat_tracker.total_games_per_season("20122013").length
+  end
+
+  def test_team_wins_per_season
+    assert_equal ({"6"=>3, "3"=>1}), @stat_tracker.team_wins_per_season("20122013")
+  end
+
+  def test_team_total_games_per_season
+    assert_equal ({"3"=>4, "6"=>4}), @stat_tracker.team_total_games_per_season("20122013")
+  end
+
+  def test_win_percentage_per_season
+    assert_equal ({"3"=>25.0, "6"=>75.0}), @stat_tracker.win_percentage_per_season("20122013")
+  end
+
+  def test_team_total_shots_per_season
+    assert_equal ({"3"=>128, "6"=>154}), @stat_tracker.team_total_shots_per_season("20122013")
+  end
+
+  def test_team_total_goals_per_season
+    assert_equal ({"3"=>9, "6"=>13}), @stat_tracker.team_total_goals_per_season("20122013")
+  end
+
+  def test_shot_goal_ratio_per_team_per_season
+    assert_equal ({"3"=>14.22, "6"=>11.85}), @stat_tracker.shot_goal_ratio_per_team_per_season("20122013")
+  end
 end
