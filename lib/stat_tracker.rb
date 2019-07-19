@@ -4,18 +4,14 @@ require_relative '../lib/team_info'
 require_relative '../lib/game_teams_stats'
 require_relative '../modules/game_statistics'
 require_relative '../modules/league_statistics'
+require_relative '../modules/team_statistics'
 require_relative '../modules/stat_helpers'
-require_relative '../modules/fenton_it4'
-require_relative '../modules/corina_it4'
-require_relative '../modules/nancy_it4'
 
 class StatTracker
   include GameStatistics
   include LeagueStatistics
+  include TeamStatistics
   include StatHelpers
-  include FentonIt4
-  include CorinaIt4
-  include NancyIt4
 
   attr_reader :games, :game_teams, :teams
 
