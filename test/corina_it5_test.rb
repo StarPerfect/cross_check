@@ -11,7 +11,7 @@ class CorinaIt5Test < Minitest::Test
   end
 
   def test_most_hits
-    assert_equal 'Ranger', @stat_tracker.most_hits_2("20122013")
+    assert_equal 'Rangers', @stat_tracker.most_hits_2("20122013")
   end
 
   # def test_fewest_hits
