@@ -142,4 +142,12 @@ module TeamStatistics
     end
     worst
   end
+
+  def head_to_head(id)
+    name_percents = {}
+    win_percent_against(id).each do |team, pct|
+      name_percents[get_team_name(team)] = pct
+    end
+    name_percents
+  end
 end

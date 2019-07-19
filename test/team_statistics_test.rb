@@ -180,4 +180,21 @@ class TeamStatisticsTest < Minitest::Test
 
     assert_equal 3, stat_tracker.worst_loss('6')
   end
+
+  def test_head_to_head
+    files = {
+      games:      './test/dummy_data/dummy_game_2.csv',
+      teams:  './test/dummy_data/dummy_team_info.csv',
+      game_teams: './test/dummy_data/dummy_gt2.csv'
+    }
+
+    stat_tracker = StatTracker.from_csv(files)
+    
+    expected = {
+      'Rangers'  => 0.75,
+      'Penguins'  => 1.0,
+      'Lightning' => 0.25
+    }
+    assert_equal expected, stat_tracker.head_to_head('6')
+  end
 end
