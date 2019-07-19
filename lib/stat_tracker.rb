@@ -4,18 +4,26 @@ require_relative '../lib/team_info'
 require_relative '../lib/game_teams_stats'
 require_relative '../modules/game_statistics'
 require_relative '../modules/league_statistics'
+require_relative '../modules/team_statistics'
 require_relative '../modules/stat_helpers'
+<<<<<<< HEAD
 require_relative '../modules/fenton_it4'
 require_relative '../modules/corina_it4'
 require_relative '../modules/fenton_it5'
+=======
+>>>>>>> d147f2e1a6e9a880e6f3583bfc6fa9f7bff5f814
 
 class StatTracker
   include GameStatistics
   include LeagueStatistics
+  include TeamStatistics
   include StatHelpers
+<<<<<<< HEAD
   include FentonIt4
   include CorinaIt4
   include FentonIt5
+=======
+>>>>>>> d147f2e1a6e9a880e6f3583bfc6fa9f7bff5f814
 
   attr_reader :games, :game_teams, :teams
 
