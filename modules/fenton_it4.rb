@@ -20,13 +20,6 @@ module FentonIt4
     wins
   end
 
-  # def losses_to(id)
-  #   losses = {}
-  #   wins = wins_against(id)
-  #   times_played(id).each { |key, val| losses[key] = val - wins[key] }
-  #   losses
-  # end
-
   def win_percent_against(id)
     percents = {}
     times_pl = times_played(id)
@@ -71,5 +64,13 @@ module FentonIt4
       end
     end
     worst
+  end
+
+  def head_to_head(id)
+    name_percents = {}
+    win_percent_against(id).each do |team, pct|
+      name_percents[get_team_name(team)] = pct
+    end
+    name_percents
   end
 end

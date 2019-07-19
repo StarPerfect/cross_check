@@ -28,15 +28,6 @@ class FentonIt4Test < Minitest::Test
     assert_equal expected, @stat_tracker.wins_against('6')
   end
 
-  # def test_losses_to
-  #   expected = {
-  #     '3'  => 1,
-  #     '5'  => 0,
-  #     '14' => 3
-  #   }
-  #   assert_equal expected, @stat_tracker.losses_to('6')
-  # end
-
   def test_win_percent_against
     expected = {
       '3'  => 0.75,
@@ -60,5 +51,14 @@ class FentonIt4Test < Minitest::Test
 
   def test_worst_loss
     assert_equal 3, @stat_tracker.worst_loss('6')
+  end
+
+  def test_head_to_head
+    expected = {
+      'Rangers'  => 0.75,
+      'Penguins'  => 1.0,
+      'Lightning' => 0.25
+    }
+    assert_equal expected, @stat_tracker.head_to_head('6')
   end
 end
