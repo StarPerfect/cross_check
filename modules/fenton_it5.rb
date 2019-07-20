@@ -1,8 +1,9 @@
 module FentonIt5
-  def win_percent_by_type
+  def win_percent_by_type(season)
+    this_season = @games.select { |game| game.season == season }
     regular = {}
     playoffs = {}
-    @games.each do |game|
+    this_season.each do |game|
       if game.type == 'R'
         regular[game.away_team_id] = {total: 0, wins: 0} unless regular.key? game.away_team_id
         regular[game.home_team_id] = {total: 0, wins: 0} unless regular.key? game.home_team_id
@@ -22,8 +23,8 @@ module FentonIt5
     {regular_season: regular, playoff_games: playoffs}
   end
 
-  def postseason_change
-    totals = win_percent_by_type
+  def postseason_change(season)
+    totals = win_percent_by_type(season)
     percents = {}
     totals.each do |season_type, teams|
       percents[season_type] = {}
@@ -34,16 +35,17 @@ module FentonIt5
     reg = percents[:regular_season]
     post = percents[:playoff_games]
     post.each do |team, percent|
+      # require 'pry';binding.pry #should work with real data
       post[team] = percent - reg[team]
     end
     post
   end
 
-  def biggest_bust
-    get_team_name( postseason_change.min_by { |team, diff| diff }.first )
+  def biggest_bust(season)
+    get_team_name( postseason_change(season).min_by { |team, diff| diff }.first )
   end
 
-  def biggest_surprise
-    get_team_name( postseason_change.max_by { |team, diff| diff }.first )
+  def biggest_surprise(season)
+    get_team_name( postseason_change(season).max_by { |team, diff| diff }.first )
   end
 end
