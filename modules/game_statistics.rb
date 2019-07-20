@@ -8,7 +8,12 @@ module GameStatistics
   end
 
   def biggest_blowout
-    highest_total_score - lowest_total_score
+    biggest = 0
+    @games.each do |game|
+      diff = (game.away_goals - game.home_goals).abs
+      biggest = diff if diff > biggest
+    end
+    biggest 
   end
 
   def percentage_home_wins
