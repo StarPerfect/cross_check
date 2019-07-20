@@ -49,13 +49,19 @@ module TeamStatistics
     win_percentage_per_season(id).min_by {|k,v| v}[0]
   end
 
-  def average_win_percentage(team)
-    id = get_team_id_from_name(team)
-    (wins_per_team[id].to_f / team_total_games_from_games[id] * 100).round(2)
+  def average_win_percentage(id)
+    games = 0
+    wins = 0
+    @game_teams.each do |game|
+      if game.team_id == id
+        games += 1
+        wins += 1 if game.won
+      end
+    end
+    ( wins.to_f / games ).round(2)
   end
 
-  def most_goals_scored(team)
-    id = get_team_id_from_name(team)
+  def most_goals_scored(id)
     max_score = 0
     @game_teams.each do |team|
       if team.team_id == id && team.goals > max_score
@@ -65,8 +71,7 @@ module TeamStatistics
     max_score
   end
 
-  def fewest_goals_scored(team)
-    id = get_team_id_from_name(team)
+  def fewest_goals_scored(id)
     min_score = 100
     @game_teams.each do |team|
       if team.team_id == id && team.goals < min_score
