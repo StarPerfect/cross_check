@@ -19,7 +19,7 @@ class GameStatisticsTest < Minitest::Test
   end
 
   def test_biggest_blowout
-    assert_equal 6, @stat_tracker.biggest_blowout
+    assert_equal 3, @stat_tracker.biggest_blowout
   end
 
   def test_percentage_home_wins

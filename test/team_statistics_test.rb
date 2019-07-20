@@ -46,6 +46,56 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal "20142015", stat_tracker.worst_season("6")
   end
 
+  def test_total_games_per_team
+    files = {
+      games:      './test/dummy_data/dummy_game_3.csv',
+      teams:  './test/dummy_data/dummy_team_info.csv',
+      game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
+    }
+
+    stat_tracker = StatTracker.from_csv(files)
+
+   assert_equal 23, stat_tracker.total_games_per_team("6").length
+  end
+
+  def test_total_games_per_team_per_season
+   files = {
+     games:      './test/dummy_data/dummy_game_3.csv',
+     teams:  './test/dummy_data/dummy_team_info.csv',
+     game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
+   }
+
+   stat_tracker = StatTracker.from_csv(files)
+
+   expected = {
+     "20122013"=>10,
+     "20172018"=>7,
+     "20132014"=>2,
+     "20142015"=>4
+   }
+
+   assert_equal expected, stat_tracker.total_games_per_team_per_season("6")
+ end
+
+ def test_total_wins_per_team_per_season
+   files = {
+     games:      './test/dummy_data/dummy_game_3.csv',
+     teams:  './test/dummy_data/dummy_team_info.csv',
+     game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
+   }
+
+   stat_tracker = StatTracker.from_csv(files)
+
+   expected = {
+     "20122013"=>9,
+     "20172018"=>4,
+     "20132014"=>2,
+     "20142015"=>1
+   }
+
+   assert_equal expected, stat_tracker.total_wins_per_team_per_season("6")
+ end
+
   def test_average_win_percentage
     files = {
       games:      './test/dummy_data/dummy_game.csv',
@@ -55,7 +105,7 @@ class TeamStatisticsTest < Minitest::Test
 
     stat_tracker = StatTracker.from_csv(files)
 
-    assert_equal 87.5, stat_tracker.average_win_percentage('Bruins')
+    assert_equal 0.88, stat_tracker.average_win_percentage('6')
   end
 
   def test_most_goals_scored
@@ -67,7 +117,7 @@ class TeamStatisticsTest < Minitest::Test
 
     stat_tracker = StatTracker.from_csv(files)
 
-    assert_equal 6, stat_tracker.most_goals_scored('Bruins')
+    assert_equal 6, stat_tracker.most_goals_scored('6')
   end
 
   def test_fewest_goals_scored
@@ -79,7 +129,7 @@ class TeamStatisticsTest < Minitest::Test
 
     stat_tracker = StatTracker.from_csv(files)
 
-    assert_equal 2, stat_tracker.fewest_goals_scored('Bruins')
+    assert_equal 2, stat_tracker.fewest_goals_scored('6')
   end
 
   def test_times_played
@@ -189,7 +239,7 @@ class TeamStatisticsTest < Minitest::Test
     }
 
     stat_tracker = StatTracker.from_csv(files)
-    
+
     expected = {
       'Rangers'  => 0.75,
       'Penguins'  => 1.0,

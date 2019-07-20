@@ -28,10 +28,10 @@ class StatHelpersTest < Minitest::Test
       "5" => 3,
       "6" => 8
     }
-    assert_equal expected, @stat_tracker.team_total_games_from_games
+    assert_equal expected, @stat_tracker.team_total_games_from_game_teams
   end
 
-  def test_team_total_games_from_game_teams
+  def test_team_total_games_from_games
     expected = {
       '3'  => 4,
       '6'  => 4,
@@ -40,6 +40,6 @@ class StatHelpersTest < Minitest::Test
       '16' => 4,
       '14' => 4
     }
-    assert_equal expected, @stat_tracker.team_total_games_from_game_teams
+    assert_equal expected, @stat_tracker.team_total_games_from_games
   end
 end
