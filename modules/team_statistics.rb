@@ -37,11 +37,14 @@ module TeamStatistics
     wins = total_wins_per_team_per_season(id)
     totals = total_games_per_team_per_season(id)
     totals.each do |season, total|
+      require 'pry';binding.pry
       totals[season] = (wins[season] / total.to_f * 100).round(2)
     end
+    totals
   end
 
   def best_season(id)
+      require 'pry';binding.pry
     win_percentage_per_season(id).max_by {|k,v| v}[0]
   end
 
