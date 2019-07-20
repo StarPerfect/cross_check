@@ -1,18 +1,17 @@
 require './test/test_helper'
-require './seasonal_summary'
 
 class SeasonalSummaryTest < Minitest::Test
   def setup
     files = {
-      games:      './test/dummy_data/dummy_game.csv',
+      games:      './data/game.csv',
       teams:  './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
+      game_teams: './data/game_teams_stats.csv'
     }
     @stat_tracker = StatTracker.from_csv(files)
   end
 
   def test_seasonal_sumamry
-    expected = expected = {
+    expected = {
       "20162017" => {
         postseason: {
           :win_percentage=>0.64,

@@ -6,12 +6,15 @@ require_relative '../modules/game_statistics'
 require_relative '../modules/league_statistics'
 require_relative '../modules/team_statistics'
 require_relative '../modules/stat_helpers'
+require_relative '../modules/seasonal_summary'
+
 
 class StatTracker
   include GameStatistics
   include LeagueStatistics
   include TeamStatistics
   include StatHelpers
+  include SeasonalSummary
 
   attr_reader :games, :game_teams, :teams
 
