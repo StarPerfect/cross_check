@@ -83,28 +83,25 @@ module SeasonStatistics
   # end
 
   def win_percentage_per_season(season)
-    by_team = games_in_season(season).group_by { |game| game.team_id }
+    by_coach = games_in_season(season).group_by { |game| game.head_coach }
     totals = {}
-    by_team.each do |team, games|
-      totals[team] = {games: 0, wins: 0}
+    by_coach.each do |coach, games|
+      totals[coach] = {games: 0, wins: 0}
       games.each do |game|
-        totals[team][:games] += 1
-        totals[team][:wins] += 1 if game.won
+        totals[coach][:games] += 1
+        totals[coach][:wins] += 1 if game.won
       end
     end
-    totals.transform_values! { |info| info[:wins].to_f / info[:games]}
+    totals.transform_values! { |info| info[:wins].to_f / info[:games] }
+    totals
   end
 
   def winningest_coach(season)
-    team_id = win_percentage_per_season(season).max_by {|k,v| v}[0]
-    total_games_per_season(season).find { |team| team.team_id == team_id }
-      .head_coach
+    win_percentage_per_season(season).max_by {|k,v| v}.first
   end
 
   def worst_coach(season)
-    worst_team = win_percentage_per_season(season).min_by {|k,v| v}.first
-    @game_teams.find { |team| team.team_id == worst_team }
-      .head_coach
+    win_percentage_per_season(season).min_by {|k,v| v}.first
   end
 
   def team_total_shots_per_season(season)

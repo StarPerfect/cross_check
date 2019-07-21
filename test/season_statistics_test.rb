@@ -7,6 +7,7 @@ class SeasonStatisticsTest < Minitest::Test
       teams: './test/dummy_data/dummy_team_info.csv',
       game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
     }
+
     @stat_tracker = StatTracker.from_csv(files)
   end
 
@@ -17,6 +18,7 @@ class SeasonStatisticsTest < Minitest::Test
       teams:  './test/dummy_data/dummy_team_info.csv',
       game_teams: './test/dummy_data/dummy_gt2.csv'
     }
+
     stat_tracker = StatTracker.from_csv(files)
 
     expected = {
@@ -89,6 +91,13 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_worst_coach
+    rfiles = {
+      game_teams: './data/game_teams_stats.csv',
+      games: './data/game.csv',
+      teams: './data/team_info.csv'
+    }
+
+    stat_tracker = StatTracker.from_csv(rfiles)
     assert_equal "John Tortorella", @stat_tracker.worst_coach("20122013")
   end
 
