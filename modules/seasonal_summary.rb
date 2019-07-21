@@ -1,28 +1,23 @@
 module SeasonalSummary
   def seasonal_summary(id)
-    all_team_games = @games.find_all{ |game| (game.away_team_id == id || game.home_team_id == id) }
-    games_by_season = all_team_games.group_by do |game|
-      game.season
-    end
-    games_by_season.transform_values! do |games|
-      games.group_by{ |game| game.type }
-    end
-    games_by_season.each{ |season, p_or_r| games_by_season[season] = {
-      postseason: {
-        win_percentage: win_percent(games_by_season[season]['P'], id),
-        total_goals_scored: tot_goals(games_by_season[season]['P'], id),
-        total_goals_against: against_goals(games_by_season[season]['P'], id),
-        average_goals_scored: avg_goals(games_by_season[season]['P'], id),
-        average_goals_against: against_avg(games_by_season[season]['P'], id)
-    },
-      regular_season: {
-        win_percentage: win_percent(games_by_season[season]['R'], id),
-        total_goals_scored: tot_goals(games_by_season[season]['R'], id),
-        total_goals_against: against_goals(games_by_season[season]['R'], id),
-        average_goals_scored: avg_goals(games_by_season[season]['R'], id),
-        average_goals_against: against_avg(games_by_season[season]['R'], id)
-        }
+    by_season_and_type = @games.find_all { |game| (game.away_team_id == id || game.home_team_id == id) }
+      .group_by { |game| game.season }
+      .transform_values! { |games| games.group_by{|game| game.type} }
+
+    by_season_and_type.each do |season, p_or_r|
+      by_season_and_type[season] = {
+        postseason: get_stats(by_season_and_type[season]['P'], id),
+        regular_season: get_stats(by_season_and_type[season]['R'], id)
       }
+    end
+  end
+
+  def get_stats(games, id)
+    { win_percentage: win_percent(games, id),
+      total_goals_scored: tot_goals(games, id),
+      total_goals_against: against_goals(games, id),
+      average_goals_scored: avg_goals(games, id),
+      average_goals_against: against_avg(games, id)
     }
   end
 
