@@ -54,35 +54,8 @@ module SeasonStatistics
     @games.select { |g| game_ids << g.game_id if g.season == season }
     @game_teams.select { |g| game_ids.include? g.game_id }
   end
-  #
-  # def team_wins_per_season(season)
-  #   hash = Hash.new(0)
-  #   total_games_per_season(season).each do |g|
-  #     hash[g.team_id] += 1 if g.won == TRUE
-  #   end
-  #   hash
-  # end
-  #
-  # def team_total_games_per_season(season)
-  #   hash = Hash.new(0)
-  #   games.select { |g| g.season == season }.each do |g|
-  #     hash[g.away_team_id] += 1
-  #     hash[g.home_team_id] += 1
-  #   end
-  #   hash
-  # end
 
-  # def win_percentage_per_season(season)
-  #   wins = team_wins_per_season(season)
-  #   totals = team_total_games_per_season(season)
-  #
-  #   totals.each do |season, total|
-  #     totals[season] = (wins[season] / total.to_f * 100).round(2)
-  #   end
-  #   totals
-  # end
-
-  def win_percentage_per_season(season)
+  def coach_win_percentage_per_season(season)
     by_coach = games_in_season(season).group_by { |game| game.head_coach }
     totals = {}
     by_coach.each do |coach, games|
@@ -97,16 +70,16 @@ module SeasonStatistics
   end
 
   def winningest_coach(season)
-    win_percentage_per_season(season).max_by {|k,v| v}.first
+    coach_win_percentage_per_season(season).max_by {|k,v| v}.first
   end
 
   def worst_coach(season)
-    win_percentage_per_season(season).min_by {|k,v| v}.first
+    coach_win_percentage_per_season(season).min_by {|k,v| v}.first
   end
 
   def team_total_shots_per_season(season)
     hash = Hash.new(0)
-    total_games_per_season(season).each do |g|
+    games_in_season(season).each do |g|
       hash[g.team_id] += g.shots
     end
     hash
@@ -114,7 +87,7 @@ module SeasonStatistics
 
   def team_total_goals_per_season(season)
     hash = Hash.new(0)
-    total_games_per_season(season).each do |g|
+    games_in_season(season).each do |g|
       hash[g.team_id] += g.goals
     end
     hash
