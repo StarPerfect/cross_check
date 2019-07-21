@@ -123,7 +123,7 @@ module LeagueStatistics
   end
 
   def count_of_teams
-    @teams.map {|team| team.team_name }.uniq.count
+    @teams.map {|team| team.team_id }.uniq.count
   end
 
   def wins_per_team
