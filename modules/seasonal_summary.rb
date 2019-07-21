@@ -24,7 +24,6 @@ module SeasonalSummary
         }
       }
     }
-
   end
 
   def win_percent(games, id)
@@ -43,22 +42,14 @@ module SeasonalSummary
   def tot_goals(games, id)
     return 0 if games.nil?
     games.sum do |game|
-      if game.away_team_id == id
-        game.away_goals
-      else
-        game.home_goals
-      end
+      game.away_team_id == id ? game.away_goals : game.home_goals
     end
   end
 
   def against_goals(games, id)
     return 0 if games.nil?
     games.sum do |game|
-      if game.away_team_id == id
-        game.home_goals
-      else
-        game.away_goals
-      end
+      game.away_team_id == id ? game.home_goals : game.away_goals
     end
   end
 
