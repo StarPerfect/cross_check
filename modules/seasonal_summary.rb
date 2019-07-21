@@ -28,6 +28,7 @@ module SeasonalSummary
   end
 
   def win_percent(games, id)
+    return 0.0 if games.nil?
     wins = games.count do |game|
       if game.away_team_id == id
         game.away_goals > game.home_goals
@@ -40,6 +41,7 @@ module SeasonalSummary
   end
 
   def tot_goals(games, id)
+    return 0 if games.nil?
     games.sum do |game|
       if game.away_team_id == id
         game.away_goals
@@ -50,6 +52,7 @@ module SeasonalSummary
   end
 
   def against_goals(games, id)
+    return 0 if games.nil?
     games.sum do |game|
       if game.away_team_id == id
         game.home_goals
@@ -60,12 +63,14 @@ module SeasonalSummary
   end
 
   def avg_goals(games, id)
+    return 0.0 if games.nil?
     ( tot_goals(games, id).to_f / games.length )
     .round(2)
   end
 
   def against_avg(games, id)
-  ( against_goals(games, id).to_f / games.length )
-  .round(2)
+    return 0.0 if games.nil?
+    ( against_goals(games, id).to_f / games.length )
+    .round(2)
   end
 end
