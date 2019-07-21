@@ -126,6 +126,14 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal ({"3"=>14.22, "6"=>11.85}), @stat_tracker.shot_goal_ratio_per_team_per_season("20122013")
   end
 
+  def test_team_hits
+    expected = {
+      '3' => 154,
+      '6' => 139
+    }
+    assert_equal expected, @stat_tracker.team_hits('20122013')
+  end
+
   def test_most_hits
     assert_equal 'Rangers', @stat_tracker.most_hits("20122013")
   end
