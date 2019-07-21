@@ -113,7 +113,7 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_win_percentage_per_season
-    assert_equal ({"3"=>25.0, "6"=>75.0}), @stat_tracker.win_percentage_per_season("20122013")
+    assert_equal ({"3"=>0.25, "6"=>0.75}), @stat_tracker.win_percentage_per_season("20122013")
   end
 
   def test_team_total_shots_per_season
