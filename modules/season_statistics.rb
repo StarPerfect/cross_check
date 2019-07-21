@@ -115,7 +115,7 @@ module SeasonStatistics
     goals = team_total_goals_per_season(season)
 
     goals.each do |season, goal|
-      goals[season] = (shots[season] / goal.to_f).round(2)
+      goals[season] = (goal.to_f / shots[season])
     end
     goals
   end
