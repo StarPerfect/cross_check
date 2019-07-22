@@ -8,7 +8,7 @@ class TeamStatisticsTest < Minitest::Test
       "team_id" => "6",
       "franchise_id" => "6",
       "short_name" => "Boston",
-      "team_name" => "Bruins",z
+      "team_name" => "Bruins",
       "abbreviation" => "BOS",
       "link" => "/api/v1/teams/6"
     }
