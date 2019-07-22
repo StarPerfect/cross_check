@@ -204,15 +204,6 @@ module LeagueStatistics
     # team_wins
   end
 
-  def home_win_pct
-    home_wins = home_wins_by_id
-    percents = {}
-    home_wins.each do |team, info|
-      percents[team] = info[:h_wins] / info[:h_games].to_f
-    end
-    percents
-  end
-
   def home_away_win_pct
     home_wins = home_wins_by_id
     away_wins = away_wins_by_id
@@ -234,7 +225,10 @@ module LeagueStatistics
   end
 
   def best_fans
-    get_team_name(home_win_pct.max_by {|k,v| v}.first)
+    best = home_away_win_pct.transform_values { |info| info[:home_pct] - info[:away_pct]}
+      .max_by {|k,v| v}.first
+
+    get_team_name(best)
 
     # home_wins_per_team.each do |team, wins|
     #   home_wins_per_team[team] = (wins - away_wins_per_team[team])
