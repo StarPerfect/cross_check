@@ -95,11 +95,11 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_most_accurate_team
-    assert_equal "Rangers", @stat_tracker.most_accurate_team("20122013")
+    assert_equal "Bruins", @stat_tracker.most_accurate_team("20122013")
   end
 
   def test_least_accurate_team
-    assert_equal "Bruins", @stat_tracker.least_accurate_team("20122013")
+    assert_equal "Rangers", @stat_tracker.least_accurate_team("20122013")
   end
 
   def test_games_in_season
@@ -123,7 +123,7 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_shot_goal_ratio_per_team_per_season
-    assert_equal ({"3"=>14.22, "6"=>11.85}), @stat_tracker.shot_goal_ratio_per_team_per_season("20122013")
+    assert_equal ({"3"=>0.0703125, "6"=>0.08441558441558442}), @stat_tracker.shot_goal_ratio_per_team_per_season("20122013")
   end
 
   def test_team_hits
