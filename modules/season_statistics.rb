@@ -49,54 +49,37 @@ module SeasonStatistics
     get_team_name( postseason_change(season).max_by { |team, diff| diff }.first )
   end
 
-  def total_games_per_season(season)
+  def games_in_season(season)
     game_ids = []
-    games.select { |g| game_ids << g.game_id if g.season == season }
-    game_teams.select { |g| game_ids.include? g.game_id }
+    @games.select { |g| game_ids << g.game_id if g.season == season }
+    @game_teams.select { |g| game_ids.include? g.game_id }
   end
 
-  def team_wins_per_season(season)
-    hash = Hash.new(0)
-    total_games_per_season(season).each do |g|
-      hash[g.team_id] += 1 if g.won == TRUE
+  def coach_win_percentage_per_season(season)
+    by_coach = games_in_season(season).group_by { |game| game.head_coach }
+    totals = {}
+    by_coach.each do |coach, games|
+      totals[coach] = {games: 0, wins: 0}
+      games.each do |game|
+        totals[coach][:games] += 1
+        totals[coach][:wins] += 1 if game.won
+      end
     end
-    hash
-  end
-
-  def team_total_games_per_season(season)
-    hash = Hash.new(0)
-    games.select { |g| g.season == season }.each do |g|
-      hash[g.away_team_id] += 1
-      hash[g.home_team_id] += 1
-    end
-    hash
-  end
-
-  def win_percentage_per_season(season)
-    wins = team_wins_per_season(season)
-    totals = team_total_games_per_season(season)
-
-    totals.each do |season, total|
-      totals[season] = (wins[season] / total.to_f * 100).round(2)
-    end
+    totals.transform_values! { |info| info[:wins].to_f / info[:games] }
     totals
   end
 
   def winningest_coach(season)
-    team_id = win_percentage_per_season(season).max_by {|k,v| v}[0]
-    total_games_per_season(season).find { |team| team.team_id == team_id }
-      .head_coach
+    coach_win_percentage_per_season(season).max_by {|k,v| v}.first
   end
 
   def worst_coach(season)
-    team_id = win_percentage_per_season(season).min_by {|k,v| v}[0]
-    total_games_per_season(season).find { |team| team.team_id == team_id }
-      .head_coach
+    coach_win_percentage_per_season(season).min_by {|k,v| v}.first
   end
 
   def team_total_shots_per_season(season)
     hash = Hash.new(0)
-    total_games_per_season(season).each do |g|
+    games_in_season(season).each do |g|
       hash[g.team_id] += g.shots
     end
     hash
@@ -104,7 +87,7 @@ module SeasonStatistics
 
   def team_total_goals_per_season(season)
     hash = Hash.new(0)
-    total_games_per_season(season).each do |g|
+    games_in_season(season).each do |g|
       hash[g.team_id] += g.goals
     end
     hash
@@ -130,30 +113,28 @@ module SeasonStatistics
     teams.find { |team| team.team_id == team_id }.team_name
   end
 
+  def team_hits(season)
+    by_team = games_in_season(season)
+      .group_by { |game| game.team_id }
+    by_team.transform_values! do |games|
+      games.map {|game| game.hits}.sum
+    end
+  end
+
   def most_hits(season)
-    game_ids_in_season = @games.find_all{ |game| game.season == season }.map{ |game_id| game_id.game_id }
-    game_teams_in_season = @game_teams.find_all{ |game_team| game_ids_in_season.include? game_team.game_id }
-    hits_hash = Hash.new(0)
-    game_teams_in_season.each{ |game_team| hits_hash[game_team.team_id] += game_team.hits }
-    most_hits_team = hits_hash.max_by{ |key,value| value }.first
+    most_hits_team = team_hits(season).max_by { |key,value| value }.first
     get_team_name(most_hits_team)
   end
 
   def fewest_hits(season)
-    game_ids_in_season = @games.find_all{ |game| game.season == season }.map{ |game_id| game_id.game_id }
-    game_teams_in_season = @game_teams.find_all{ |game_team| game_ids_in_season.include? game_team.game_id }
-    hits_hash = Hash.new(0)
-    game_teams_in_season.each{ |game_team| hits_hash[game_team.team_id] += game_team.hits }
-    fewest_hits_team = hits_hash.min_by{ |key,value| value }.first
+    fewest_hits_team = team_hits(season).min_by{ |key,value| value }.first
     get_team_name(fewest_hits_team)
   end
 
   def power_play_goal_percentage(season)
-    game_ids_in_season = @games.find_all{ |game| game.season == season }.map{ |game_id| game_id.game_id }
-    game_teams_in_season = @game_teams.find_all{ |game_team| game_ids_in_season.include? game_team.game_id }
-    total_goals = game_teams_in_season.map{ |game_team| game_team.goals }.sum
-    total_pp_goals = game_teams_in_season.map{ |game_team| game_team.power_play_goals }.sum
-    percentage = total_pp_goals / total_goals.to_f
-    percentage.round(2)
+    season_games = games_in_season(season)
+    total_goals = season_games.map{ |game_team| game_team.goals }.sum
+    total_pp_goals = season_games.map{ |game_team| game_team.power_play_goals }.sum
+    ( total_pp_goals / total_goals.to_f ).round(2)
   end
 end

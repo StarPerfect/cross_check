@@ -7,6 +7,7 @@ class SeasonStatisticsTest < Minitest::Test
       teams: './test/dummy_data/dummy_team_info.csv',
       game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
     }
+
     @stat_tracker = StatTracker.from_csv(files)
   end
 
@@ -17,6 +18,7 @@ class SeasonStatisticsTest < Minitest::Test
       teams:  './test/dummy_data/dummy_team_info.csv',
       game_teams: './test/dummy_data/dummy_gt2.csv'
     }
+
     stat_tracker = StatTracker.from_csv(files)
 
     expected = {
@@ -100,20 +102,16 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal "Bruins", @stat_tracker.least_accurate_team("20122013")
   end
 
-  def test_total_games_per_season
-    assert_equal 8, @stat_tracker.total_games_per_season("20122013").length
+  def test_games_in_season
+    assert_equal 8, @stat_tracker.games_in_season("20122013").length
   end
 
-  def test_team_wins_per_season
-    assert_equal ({"6"=>3, "3"=>1}), @stat_tracker.team_wins_per_season("20122013")
-  end
-
-  def test_team_total_games_per_season
-    assert_equal ({"3"=>4, "6"=>4}), @stat_tracker.team_total_games_per_season("20122013")
-  end
-
-  def test_win_percentage_per_season
-    assert_equal ({"3"=>25.0, "6"=>75.0}), @stat_tracker.win_percentage_per_season("20122013")
+  def test_coach_win_percentage_per_season
+    expected = {
+      "John Tortorella" => 0.25,
+      "Claude Julien" => 0.75
+    }
+    assert_equal expected, @stat_tracker.coach_win_percentage_per_season("20122013")
   end
 
   def test_team_total_shots_per_season
@@ -126,6 +124,14 @@ class SeasonStatisticsTest < Minitest::Test
 
   def test_shot_goal_ratio_per_team_per_season
     assert_equal ({"3"=>14.22, "6"=>11.85}), @stat_tracker.shot_goal_ratio_per_team_per_season("20122013")
+  end
+
+  def test_team_hits
+    expected = {
+      '3' => 154,
+      '6' => 139
+    }
+    assert_equal expected, @stat_tracker.team_hits('20122013')
   end
 
   def test_most_hits
