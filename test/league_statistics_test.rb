@@ -120,7 +120,7 @@ class LeagueStatisticsTest < Minitest::Test
 
   def test_best_fans
     files = {
-      games:      './test/dummy_data/dummy_game.csv',
+      games:      './test/dummy_data/dummy_game_2.csv',
       teams:      './test/dummy_data/dummy_team_info.csv',
       game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
     }

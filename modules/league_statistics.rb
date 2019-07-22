@@ -164,27 +164,77 @@ module LeagueStatistics
     away_wins
   end
 
+  def away_wins_by_id
+    away_info = {}
+    @games.each do |game|
+      id = game.away_team_id
+      away_info[id] = {a_games: 0, a_wins: 0} unless away_info.key? id
+      away_info[id][:a_games] += 1
+      away_info[id][:a_wins] += 1 if game.home_goals < game.away_goals
+    end
+    @away_wins ||= away_info
+  end
+
+  def home_wins_by_id
+    home_info = {}
+    @games.each do |game|
+      id = game.home_team_id
+      home_info[id] = {h_games: 0, h_wins: 0} unless home_info.key? id
+      home_info[id][:h_games] += 1
+      home_info[id][:h_wins] += 1 if game.home_goals > game.away_goals
+    end
+    @home_wins ||= home_info
+
+    # ## these = @game_teams.select {|games| games.team_id == '53' || games.team_id == '27' || games.team_id == '54'}
+    # ## these = @game_teams.select {|games| get_team_name(games.team_id) == 'Coyotes' || get_team_name(games.team_id) == 'Golden Knights'}
+    # by_team = @game_teams.group_by { |games| games.team_id }
+    # team_wins = {}
+    # by_team.each do |team, games|
+    #   team_wins[team] = {h_win: 0, a_win: 0, h_games: 0, a_games: 0}
+    #   games.each do |game|
+    #     if game.home_or_away == 'home'
+    #       team_wins[team][:h_games] += 1
+    #       team_wins[team][:h_win] += 1 if game.won
+    #     else
+    #       team_wins[team][:a_games] += 1
+    #       team_wins[team][:a_win] += 1 if game.won
+    #     end
+    #   end
+    # end
+    # team_wins
+  end
+
+  def home_win_pct
+    home_wins = home_wins_by_id
+    percents = {}
+    home_wins.each do |team, info|
+      percents[team] = info[:h_wins] / info[:h_games].to_f
+    end
+    percents
+  end
+
+  def home_away_win_pct
+    home_wins = home_wins_by_id
+    away_wins = away_wins_by_id
+    percents = {}
+    home_wins.each do |team, info|
+      percents[team] = {home_pct: 0, away_pct: 0}
+      percents[team][:home_pct] = home_wins[team][:h_wins] / home_wins[team][:h_games].to_f
+      percents[team][:away_pct] = away_wins[team][:a_wins] / away_wins[team][:a_games].to_f
+    end
+    percents
+
+
+    # team_wins = h_and_away_wins_by_name
+    # team_wins.each do |team, wins|
+    #   team_wins[team][:home_pct] = team_wins[team][:h_win].to_f / team_wins[team][:h_games]
+    #   team_wins[team][:away_pct] = team_wins[team][:a_win].to_f / team_wins[team][:a_games]
+    # end
+    # team_wins
+  end
+
   def best_fans
-    by_team = @game_teams.group_by { |games| get_team_name(games.team_id) }
-    team_wins = {}
-    by_team.each do |team, games|
-      team_wins[team] = {h_win: 0, a_win: 0, h_games: 0, a_games: 0}
-      games.each do |game|
-        if game.home_or_away == 'home'
-          team_wins[team][:h_games] += 1
-          team_wins[team][:h_win] += 1 if game.won
-        else
-          team_wins[team][:a_games] += 1
-          team_wins[team][:a_win] += 1 if game.won
-        end
-      end
-    end
-    team_wins.each do |team, wins|
-      team_wins[team][:home_pct] = team_wins[team][:h_win].to_f / team_wins[team][:h_games]
-      team_wins[team][:away_pct] = team_wins[team][:a_win].to_f / team_wins[team][:a_games]
-    end
-    require 'pry';binding.pry
-    team_wins.max_by {|team, info| info[:home_pct]}.first
+    get_team_name(home_win_pct.max_by {|k,v| v}.first)
 
     # home_wins_per_team.each do |team, wins|
     #   home_wins_per_team[team] = (wins - away_wins_per_team[team])
