@@ -165,11 +165,28 @@ module LeagueStatistics
   end
 
   def best_fans
-    home_wins_per_team.each do |team, wins|
-      home_wins_per_team[team] = (wins - away_wins_per_team[team])
+    by_team = @game_teams.group_by { |games| get_team_name(games.team_id) }
+    team_wins = {}
+    by_team.each do |team, games|
+      team_wins[team] = {home: 0, away: 0, total: 0}
+      games.each do |game|
+        team_wins[team][:total] += 1
+        team_wins[team][:home] += 1 if game.won && game.home_or_away == 'home'
+        team_wins[team][:away] += 1 if game.won && game.home_or_away == 'away'
+      end
     end
-    answer = home_wins_per_team.max_by{ |key, value| value }
-    @teams.find{ |team| team.team_id == answer[0] }.team_name
+    team_wins.each do |team, wins|
+      team_wins[team][:home_pct] = team_wins[team][:home].to_f / team_wins[team][:total]
+      team_wins[team][:away_pct] = team_wins[team][:away].to_f / team_wins[team][:total]
+    end
+    
+    team_wins.max_by {|team, info| info[:home_pct]}.first
+
+    # home_wins_per_team.each do |team, wins|
+    #   home_wins_per_team[team] = (wins - away_wins_per_team[team])
+    # end
+    # answer = home_wins_per_team.max_by{ |key, value| value }
+    # @teams.find{ |team| team.team_id == answer[0] }.team_name
   end
 
   def worst_fans
