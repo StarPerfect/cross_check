@@ -1,24 +1,20 @@
 require './test/test_helper'
+require 'mocha/minitest'
 
 class TeamStatisticsTest < Minitest::Test
 
   def test_team_info
-    files = {
-      games:      './test/dummy_data/dummy_game_3.csv',
-      teams:  './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
-    }
-
-    stat_tracker = StatTracker.from_csv(files)
-
     expected = {
       "team_id" => "6",
       "franchise_id" => "6",
       "short_name" => "Boston",
-      "team_name" => "Bruins",
+      "team_name" => "Bruins",z
       "abbreviation" => "BOS",
       "link" => "/api/v1/teams/6"
     }
+
+    stat_tracker = stub(team_info: expected)
+
     assert_equal expected, stat_tracker.team_info("6")
   end
 
