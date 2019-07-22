@@ -168,18 +168,22 @@ module LeagueStatistics
     by_team = @game_teams.group_by { |games| get_team_name(games.team_id) }
     team_wins = {}
     by_team.each do |team, games|
-      team_wins[team] = {home: 0, away: 0, total: 0}
+      team_wins[team] = {h_win: 0, a_win: 0, h_games: 0, a_games: 0}
       games.each do |game|
-        team_wins[team][:total] += 1
-        team_wins[team][:home] += 1 if game.won && game.home_or_away == 'home'
-        team_wins[team][:away] += 1 if game.won && game.home_or_away == 'away'
+        if game.home_or_away == 'home'
+          team_wins[team][:h_games] += 1
+          team_wins[team][:h_win] += 1 if game.won
+        else
+          team_wins[team][:a_games] += 1
+          team_wins[team][:a_win] += 1 if game.won
+        end
       end
     end
     team_wins.each do |team, wins|
-      team_wins[team][:home_pct] = team_wins[team][:home].to_f / team_wins[team][:total]
-      team_wins[team][:away_pct] = team_wins[team][:away].to_f / team_wins[team][:total]
+      team_wins[team][:home_pct] = team_wins[team][:h_win].to_f / team_wins[team][:h_games]
+      team_wins[team][:away_pct] = team_wins[team][:a_win].to_f / team_wins[team][:a_games]
     end
-    
+    require 'pry';binding.pry
     team_wins.max_by {|team, info| info[:home_pct]}.first
 
     # home_wins_per_team.each do |team, wins|
