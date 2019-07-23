@@ -23,25 +23,57 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_best_season
-    files = {
-      games:      './test/dummy_data/dummy_game_3.csv',
-      teams:  './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
+    stat_tracker = StatTracker.new({})
+
+    mock_wins = {
+      "20122013"=>9,
+      "20172018"=>4,
+      "20132014"=>2,
+      "20142015"=>1
     }
 
-    stat_tracker = StatTracker.from_csv(files)
+    mock_totals = {
+      "20122013"=>10,
+      "20172018"=>7,
+      "20132014"=>2,
+      "20142015"=>4
+    }
+
+    stat_tracker.stubs(:total_wins_per_team_per_season)
+      .with('6')
+      .returns(mock_wins)
+
+    stat_tracker.stubs(:total_games_per_team_per_season)
+      .with('6')
+      .returns(mock_totals)
 
     assert_equal "20132014", stat_tracker.best_season("6")
   end
 
   def test_worst_season
-    files = {
-      games:      './test/dummy_data/dummy_game_3.csv',
-      teams:  './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
+    stat_tracker = StatTracker.new({})
+
+    mock_wins = {
+      "20122013"=>9,
+      "20172018"=>4,
+      "20132014"=>2,
+      "20142015"=>1
     }
 
-    stat_tracker = StatTracker.from_csv(files)
+    mock_totals = {
+      "20122013"=>10,
+      "20172018"=>7,
+      "20132014"=>2,
+      "20142015"=>4
+    }
+
+    stat_tracker.stubs(:total_wins_per_team_per_season)
+      .with('6')
+      .returns(mock_wins)
+
+    stat_tracker.stubs(:total_games_per_team_per_season)
+      .with('6')
+      .returns(mock_totals)
 
     assert_equal "20142015", stat_tracker.worst_season("6")
   end
@@ -167,42 +199,51 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_win_percent_against
-    files = {
-      games:      './test/dummy_data/dummy_game_2.csv',
-      teams:  './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_gt2.csv'
-    }
+    stat_tracker = StatTracker.new({})
 
-    stat_tracker = StatTracker.from_csv(files)
+    mock_wins = {"3"=>3, "5"=>4, "14"=>1}
+    mock_times_played = {'3' => 4, '5' => 4, '14' => 4}
+    expected = {'3' => 0.75, '5' => 1.0, '14' => 0.25}
 
-    expected = {
-      '3'  => 0.75,
-      '5'  => 1.0,
-      '14' => 0.25
-    }
+    stat_tracker.stubs(:wins_against)
+      .with('6')
+      .returns(mock_wins)
+
+    stat_tracker.stubs(:times_played)
+      .with('6')
+      .returns(mock_times_played)
+
     assert_equal expected, stat_tracker.win_percent_against('6')
   end
 
   def test_favorite_opponent
-    files = {
-      games:      './test/dummy_data/dummy_game_2.csv',
-      teams:  './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_gt2.csv'
-    }
+    stat_tracker = StatTracker.new({})
 
-    stat_tracker = StatTracker.from_csv(files)
+    mock_data = {'3' => 0.75, '5' => 1.0, '14' => 0.25}
+
+    stat_tracker.stubs(:win_percent_against)
+      .with('6')
+      .returns(mock_data)
+
+    stat_tracker.stubs(:get_team_name)
+      .with('5')
+      .returns('Penguins')
 
     assert_equal 'Penguins', stat_tracker.favorite_opponent('6')
   end
 
   def test_rival
-    files = {
-      games:      './test/dummy_data/dummy_game_2.csv',
-      teams:  './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_gt2.csv'
-    }
+    stat_tracker = StatTracker.new({})
 
-    stat_tracker = StatTracker.from_csv(files)
+    mock_data = {'3' => 0.75, '5' => 1.0, '14' => 0.25}
+
+    stat_tracker.stubs(:win_percent_against)
+    .with('6')
+    .returns(mock_data)
+
+    stat_tracker.stubs(:get_team_name)
+    .with('14')
+    .returns('Lightning')
 
     assert_equal 'Lightning', stat_tracker.rival('6')
   end
