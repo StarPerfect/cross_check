@@ -83,6 +83,12 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal 'Penguins', stat_tracker.biggest_surprise('20132014')
   end
 
+  def test_games_in_season
+    actual = @stat_tracker.games_in_season("20122013")
+    assert_equal 8, actual.length
+    assert actual.all? { |obj| obj.class == GameTeamsStats }
+  end
+
   def test_winningest_coach
     assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
   end
@@ -99,9 +105,6 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal "Rangers", @stat_tracker.least_accurate_team("20122013")
   end
 
-  def test_games_in_season
-    assert_equal 8, @stat_tracker.games_in_season("20122013").length
-  end
 
   def test_coach_win_percentage_per_season
     expected = {
