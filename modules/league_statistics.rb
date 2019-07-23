@@ -130,18 +130,30 @@ module LeagueStatistics
     team_wins = Hash.new(0)
     @game_teams.each do |team|
       if team.won
-       team_wins[team.team_id] += 1
+       team_wins[get_team_name(team.team_id)] += 1
       end
     end
+
+    # team_wins['53'] += team_wins['27']
+    # team_wins['27'] = team_wins['53']
     team_wins
+
   end
 
-  def winningest_team
-    wins_per_team.each do |team, wins|
-      wins_per_team[team] = (wins.to_i / team_total_games_from_game_teams[team])
+  def total_games_by_name
+    each_total_games = Hash.new(0)
+    @game_teams.each do |game_team|
+      each_total_games[get_team_name(game_team.team_id)] += 1
     end
-    answer = wins_per_team.max_by{ |key, value| value }
-    @teams.find{ |team| team.team_id == answer[0] }.team_name
+    each_total_games
+  end
+
+
+  def winningest_team
+    answer =  wins_per_team.map do |team, wins|
+      [team, (wins.to_f / total_games_by_name[team] )]
+    end.to_h
+    answer.max_by{ |key, value| value }.first
   end
 
   def home_wins_per_team
