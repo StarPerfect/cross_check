@@ -12,7 +12,6 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_win_percent_by_type
-    skip
     files = {
       games:      './test/dummy_data/dummy_game_post.csv',
       teams:  './test/dummy_data/dummy_team_info.csv',
@@ -23,29 +22,27 @@ class SeasonStatisticsTest < Minitest::Test
 
     expected = {
       regular_season: {
-        '5'  => { total: 2, wins: 0 },
-        '26' => { total: 2, wins: 1 },
-        '28' => { total: 2, wins: 1 },
-        '29' => { total: 3, wins: 2 },
         '4'  => { total: 1, wins: 1 },
-        '9'  => { total: 1, wins: 0 },
-        '30' => { total: 2, wins: 2 },
-        '2'  => { total: 1, wins: 0 },
+        '5'  => { total: 2, wins: 0 },
+        '7'  => { total: 1, wins: 1 },
+        '9'  => { total: 1, wins: 1 },
         '14' => { total: 1, wins: 0 },
-        '7'  => { total: 1, wins: 0 },
+        '26' => { total: 1, wins: 0 },
+        '28' => { total: 2, wins: 1 },
+        '29' => { total: 1, wins: 1 },
+        '30' => { total: 2, wins: 1 }
       },
       playoff_games: {
         '5'  => { total: 3, wins: 3 },
-        '26' => { total: 3, wins: 0 },
+        '26' => { total: 3, wins: 1 },
         '28' => { total: 3, wins: 2 },
-        '29' => { total: 3, wins: 1 }
+        '29' => { total: 3, wins: 0 }
       }
     }
     assert_equal expected, stat_tracker.win_percent_by_type('20132014')
   end
 
   def test_postseason_change
-    skip
     files = {
       games:      './test/dummy_data/dummy_game_post.csv',
       teams:  './test/dummy_data/dummy_team_info.csv',
@@ -55,7 +52,7 @@ class SeasonStatisticsTest < Minitest::Test
 
     expected = {
       '5'  => 1.0,
-      '26' => (-0.167),
+      '26' => 0.333,
       '28' => 0.167,
       '29' => (-1.0)
     }
