@@ -35,10 +35,8 @@ module SeasonStatistics
     reg = percents[:regular_season]
     post = percents[:playoff_games]
     post.each do |team, percent|
-      # require 'pry';binding.pry #should work with real data
       post[team] = percent - reg[team]
     end
-    post
   end
 
   def biggest_bust(season)
@@ -51,7 +49,7 @@ module SeasonStatistics
 
   def games_in_season(season)
     game_ids = []
-    @games.select { |g| game_ids << g.game_id if g.season == season }
+    @games.each { |g| game_ids << g.game_id if g.season == season }
     @game_teams.select { |g| game_ids.include? g.game_id }
   end
 
@@ -65,8 +63,7 @@ module SeasonStatistics
         totals[coach][:wins] += 1 if game.won
       end
     end
-    totals.transform_values! { |info| info[:wins].to_f / info[:games] }
-    totals
+    totals.transform_values { |info| info[:wins].to_f / info[:games] }
   end
 
   def winningest_coach(season)
@@ -77,39 +74,30 @@ module SeasonStatistics
     coach_win_percentage_per_season(season).min_by {|k,v| v}.first
   end
 
-  def team_total_shots_per_season(season)
-    hash = Hash.new(0)
-    games_in_season(season).each do |g|
-      hash[g.team_id] += g.shots
+  def shots_and_goals_per_season(season)
+    hash = {}
+    games_in_season(season).each do |game|
+      id = game.team_id
+      hash[id] = {shots: 0, goals: 0} unless hash.key? id
+      hash[id][:shots] += game.shots
+      hash[id][:goals] += game.goals
     end
     hash
   end
 
-  def team_total_goals_per_season(season)
-    hash = Hash.new(0)
-    games_in_season(season).each do |g|
-      hash[g.team_id] += g.goals
+  def shot_goal_ratio_per_team(season)
+    shots_and_goals_per_season(season).transform_values do |info|
+      info[:goals].to_f / info[:shots]
     end
-    hash
-  end
-
-  def shot_goal_ratio_per_team_per_season(season)
-    shots = team_total_shots_per_season(season)
-    goals = team_total_goals_per_season(season)
-
-    goals.each do |season, goal|
-      goals[season] = (goal.to_f / shots[season])
-    end
-    goals
   end
 
   def most_accurate_team(season)
-    team_id = shot_goal_ratio_per_team_per_season(season).max_by {|k,v| v}[0]
+    team_id = shot_goal_ratio_per_team(season).max_by {|k,v| v}[0]
     teams.find { |team| team.team_id == team_id }.team_name
   end
 
   def least_accurate_team(season)
-    team_id = shot_goal_ratio_per_team_per_season(season).min_by {|k,v| v}[0]
+    team_id = shot_goal_ratio_per_team(season).min_by {|k,v| v}[0]
     teams.find { |team| team.team_id == team_id }.team_name
   end
 
