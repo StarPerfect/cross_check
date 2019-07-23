@@ -241,7 +241,7 @@ class LeagueStatisticsTest < Minitest::Test
     files = {
       games:      './test/dummy_data/dummy_game.csv',
       teams:      './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_game_teams_stats0.csv'
+      game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
     }
     stat_tracker = StatTracker.from_csv(files)
 
