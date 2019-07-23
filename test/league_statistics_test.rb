@@ -120,13 +120,13 @@ class LeagueStatisticsTest < Minitest::Test
 
   def test_best_fans
     files = {
-      games:      './test/dummy_data/dummy_game.csv',
+      games:      './test/dummy_data/dummy_game_2.csv',
       teams:      './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_game_teams_stats0.csv'
+      game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
     }
     stat_tracker = StatTracker.from_csv(files)
 
-    assert_equal 'Blackhawks', stat_tracker.best_fans
+    assert_equal 'Rangers', stat_tracker.best_fans
   end
 
   def test_worst_fans

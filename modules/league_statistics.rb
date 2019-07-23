@@ -130,50 +130,73 @@ module LeagueStatistics
     team_wins = Hash.new(0)
     @game_teams.each do |team|
       if team.won
-       team_wins[team.team_id] += 1
+       team_wins[get_team_name(team.team_id)] += 1
       end
     end
     team_wins
   end
 
+  def total_games_by_name
+    each_total_games = Hash.new(0)
+    @game_teams.each do |game_team|
+      each_total_games[get_team_name(game_team.team_id)] += 1
+    end
+    each_total_games
+  end
+
+
   def winningest_team
-    wins_per_team.each do |team, wins|
-      wins_per_team[team] = (wins.to_i / team_total_games_from_game_teams[team])
-    end
-    answer = wins_per_team.max_by{ |key, value| value }
-    @teams.find{ |team| team.team_id == answer[0] }.team_name
+    answer =  wins_per_team.map do |team, wins|
+      [team, (wins.to_f / total_games_by_name[team] )]
+    end.to_h
+    answer.max_by{ |key, value| value }.first
   end
 
-  def home_wins_per_team
-    home_wins = Hash.new(0)
-    @game_teams.each do |team|
-      if team.won && team.home_or_away == 'home'
-       home_wins[team.team_id] += 1
-      end
+  def away_wins_by_id
+    away_info = {}
+    @games.each do |game|
+      id = game.away_team_id
+      away_info[id] = {a_games: 0, a_wins: 0} unless away_info.key? id
+      away_info[id][:a_games] += 1
+      away_info[id][:a_wins] += 1 if game.home_goals < game.away_goals
     end
-    home_wins
+    @away_wins ||= away_info
   end
 
-  def away_wins_per_team
-    away_wins = Hash.new(0)
-    @game_teams.each do |team|
-      if team.won && team.home_or_away == 'away'
-       away_wins[team.team_id] += 1
-      end
+  def home_wins_by_id
+    home_info = {}
+    @games.each do |game|
+      id = game.home_team_id
+      home_info[id] = {h_games: 0, h_wins: 0} unless home_info.key? id
+      home_info[id][:h_games] += 1
+      home_info[id][:h_wins] += 1 if game.home_goals > game.away_goals
     end
-    away_wins
+    @home_wins ||= home_info
+  end
+
+  def home_away_win_pct
+    home_wins = home_wins_by_id
+    away_wins = away_wins_by_id
+    percents = {}
+    home_wins.each do |team, info|
+      percents[team] = {home_pct: 0, away_pct: 0}
+      percents[team][:home_pct] = home_wins[team][:h_wins] / home_wins[team][:h_games].to_f
+      percents[team][:away_pct] = away_wins[team][:a_wins] / away_wins[team][:a_games].to_f
+    end
+    @home_away_percents ||= percents
   end
 
   def best_fans
-    home_wins_per_team.each do |team, wins|
-      home_wins_per_team[team] = (wins - away_wins_per_team[team])
-    end
-    answer = home_wins_per_team.max_by{ |key, value| value }
-    @teams.find{ |team| team.team_id == answer[0] }.team_name
+    best = home_away_win_pct
+      .transform_values { |info| info[:home_pct] - info[:away_pct] }
+      .max_by {|k,v| v}
+      .first
+    get_team_name(best)
   end
 
   def worst_fans
-    crap_fans = @teams.find_all{ |team| home_wins_per_team[team.team_id] < away_wins_per_team[team.team_id] }
-    crap_fans.map{|team| get_team_name(team.team_id )}
+    home_away_win_pct.find_all { |team, info| info[:away_pct] > info[:home_pct] }
+      .map(&:first)
+      .map { |id| get_team_name(id) }
   end
 end
