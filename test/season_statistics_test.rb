@@ -62,12 +62,21 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_biggest_bust
-    files = {
-      games:      './test/dummy_data/dummy_game_post.csv',
-      teams:  './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_gt2.csv'
+    stat_tracker = StatTracker.new({})
+
+    mock_data = {
+      '5'  => 1.0,
+      '26' => 0.333,
+      '28' => 0.167,
+      '29' => (-1.0)
     }
-    stat_tracker = StatTracker.from_csv(files)
+    
+    stat_tracker.stubs(:postseason_change)
+      .with('20132014')
+      .returns(mock_data)
+    stat_tracker.stubs(:get_team_name)
+      .with('29')
+      .returns('Blue Jackets')
 
     assert_equal 'Blue Jackets', stat_tracker.biggest_bust('20132014')
   end
