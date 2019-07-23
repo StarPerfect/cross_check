@@ -51,7 +51,7 @@ module SeasonStatistics
 
   def games_in_season(season)
     game_ids = []
-    @games.select { |g| game_ids << g.game_id if g.season == season }
+    @games.each { |g| game_ids << g.game_id if g.season == season }
     @game_teams.select { |g| game_ids.include? g.game_id }
   end
 
