@@ -114,16 +114,16 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal expected, @stat_tracker.coach_win_percentage_per_season("20122013")
   end
 
-  def test_team_total_shots_per_season
-    assert_equal ({"3"=>128, "6"=>154}), @stat_tracker.team_total_shots_per_season("20122013")
+  def test_shots_and_goals_per_season
+    expected = {
+      '3' => {shots: 128, goals: 9},
+      '6' => {shots: 154, goals: 13}
+    }
+    assert_equal expected, @stat_tracker.shots_and_goals_per_season("20122013")
   end
 
-  def test_team_total_goals_per_season
-    assert_equal ({"3"=>9, "6"=>13}), @stat_tracker.team_total_goals_per_season("20122013")
-  end
-
-  def test_shot_goal_ratio_per_team_per_season
-    assert_equal ({"3"=>0.0703125, "6"=>0.08441558441558442}), @stat_tracker.shot_goal_ratio_per_team_per_season("20122013")
+  def test_shot_goal_ratio_per_team
+    assert_equal ({"3"=>0.0703125, "6"=>0.08441558441558442}), @stat_tracker.shot_goal_ratio_per_team("20122013")
   end
 
   def test_team_hits
