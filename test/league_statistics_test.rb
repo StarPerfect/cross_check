@@ -29,11 +29,33 @@ class LeagueStatisticsTest < Minitest::Test
   end
 
   def test_best_offense
-    assert_equal "Bruins", @stat_tracker.best_offense
+    stat_tracker = StatTracker.new({})
+
+    mock_data = {
+      "3"=>2.0,
+      "6"=>3.375,
+      "5"=>0.667
+    }
+
+    stat_tracker.stubs(:team_avg_goals_per_game).returns(mock_data)
+    stat_tracker.stubs(:get_team_name).with('6').returns('Bruins')
+
+    assert_equal "Bruins", stat_tracker.best_offense
   end
 
   def test_worst_offense
-    assert_equal "Penguins", @stat_tracker.worst_offense
+    stat_tracker = StatTracker.new({})
+
+    mock_data = {
+      "3"=>2.0,
+      "6"=>3.375,
+      "5"=>0.667
+    }
+
+    stat_tracker.stubs(:team_avg_goals_per_game).returns(mock_data)
+    stat_tracker.stubs(:get_team_name).with('5').returns('Penguins')
+
+    assert_equal "Penguins", stat_tracker.worst_offense
   end
 
   def test_team_home_goals_allowed
@@ -73,10 +95,38 @@ class LeagueStatisticsTest < Minitest::Test
   end
 
   def test_best_defense
-    assert_equal "Bruins", @stat_tracker.best_defense
+    stat_tracker = StatTracker.new({})
+
+    mock_data = {
+      "6"=>2.25,
+      "3"=>3.25,
+      "24"=>2.25,
+      "20"=>3.5,
+      "14"=>2.25,
+      "16"=>2.25
+    }
+
+    stat_tracker.stubs(:team_avg_goals_allowed).returns(mock_data)
+    stat_tracker.stubs(:get_team_name).with('6').returns('Bruins')
+
+    assert_equal "Bruins", stat_tracker.best_defense
   end
 
   def test_worst_defense
+    stat_tracker = StatTracker.new({})
+
+    mock_data = {
+      "6"=>2.25,
+      "3"=>3.25,
+      "24"=>2.25,
+      "20"=>3.5,
+      "14"=>2.25,
+      "16"=>2.25
+    }
+
+    stat_tracker.stubs(:team_avg_goals_allowed).returns(mock_data)
+    stat_tracker.stubs(:get_team_name).with('20').returns('Flames')
+
     assert_equal "Flames", @stat_tracker.worst_defense
   end
 
