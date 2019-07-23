@@ -13,8 +13,8 @@ class SeasonStatisticsTest < Minitest::Test
 
   def test_win_percent_by_type
     files = {
-      games:      './test/dummy_data/dummy_game_post.csv',
-      teams:  './test/dummy_data/dummy_team_info.csv',
+      games: './test/dummy_data/dummy_game_post.csv',
+      teams: './test/dummy_data/dummy_team_info.csv',
       game_teams: './test/dummy_data/dummy_gt2.csv'
     }
 
@@ -44,8 +44,8 @@ class SeasonStatisticsTest < Minitest::Test
 
   def test_postseason_change
     files = {
-      games:      './test/dummy_data/dummy_game_post.csv',
-      teams:  './test/dummy_data/dummy_team_info.csv',
+      games: './test/dummy_data/dummy_game_post.csv',
+      teams: './test/dummy_data/dummy_team_info.csv',
       game_teams: './test/dummy_data/dummy_gt2.csv'
     }
     stat_tracker = StatTracker.from_csv(files)
@@ -70,7 +70,7 @@ class SeasonStatisticsTest < Minitest::Test
       '28' => 0.167,
       '29' => (-1.0)
     }
-    
+
     stat_tracker.stubs(:postseason_change)
       .with('20132014')
       .returns(mock_data)
@@ -82,12 +82,21 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_biggest_surprise
-    files = {
-      games:      './test/dummy_data/dummy_game_post.csv',
-      teams:  './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_gt2.csv'
+    stat_tracker = StatTracker.new({})
+
+    mock_data = {
+      '5'  => 1.0,
+      '26' => 0.333,
+      '28' => 0.167,
+      '29' => (-1.0)
     }
-    stat_tracker = StatTracker.from_csv(files)
+
+    stat_tracker.stubs(:postseason_change)
+      .with('20132014')
+      .returns(mock_data)
+    stat_tracker.stubs(:get_team_name)
+      .with('5')
+      .returns('Penguins')
 
     assert_equal 'Penguins', stat_tracker.biggest_surprise('20132014')
   end
@@ -147,10 +156,26 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_most_hits
-    assert_equal 'Rangers', @stat_tracker.most_hits("20122013")
+    stat_tracker = StatTracker.new({})
+    stat_tracker.stubs(:team_hits)
+      .with('20122013')
+      .returns({'3' => 154,'6' => 139})
+    stat_tracker.stubs(:get_team_name)
+      .with('3')
+      .returns('Rangers')
+
+    assert_equal 'Rangers', stat_tracker.most_hits("20122013")
   end
 
   def test_fewest_hits
+    stat_tracker = StatTracker.new({})
+    stat_tracker.stubs(:team_hits)
+      .with('20122013')
+      .returns({'3' => 154,'6' => 139})
+    stat_tracker.stubs(:get_team_name)
+      .with('6')
+      .returns('Bruins')
+
     assert_equal 'Bruins', @stat_tracker.fewest_hits("20122013")
   end
 
