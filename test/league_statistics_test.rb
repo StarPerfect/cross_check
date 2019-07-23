@@ -80,6 +80,60 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal "Flames", @stat_tracker.worst_defense
   end
 
+  def test_away_team_goals
+    expected = {
+      '3' => 5,
+      '5' => 1,
+      '6' => 14
+    }
+    assert_equal expected, @stat_tracker.away_team_goals
+  end
+
+  def test_home_team_goals
+    expected = {
+      '3' => 5,
+      '5' => 1,
+      '6' => 13
+    }
+    assert_equal expected, @stat_tracker.home_team_goals
+  end
+
+  def test_away_team_total_games
+    expected = {
+      '3' => 3,
+      '5' => 1,
+      '6' => 4
+    }
+    assert_equal expected, @stat_tracker.away_team_total_games
+  end
+
+  def test_home_team_total_games
+    expected = {
+      '3' => 2,
+      '5' => 2,
+      '6' => 4
+    }
+    assert_equal expected, @stat_tracker.home_team_total_games
+  end
+
+  def test_away_team_avg_goals_per_game
+    expected = {
+      '3' => 1.667,
+      '5' => 1.0,
+      '6' => 3.5
+    }
+    assert_equal expected, @stat_tracker.away_team_avg_goals_per_game
+  end
+
+  def test_home_team_avg_goals_per_game
+    expected = {
+      '3' => 2.5,
+      '5' => 0.5,
+      '6' => 3.25
+    }
+    assert_equal expected, @stat_tracker.home_team_avg_goals_per_game
+  end
+
   def test_highest_scoring_visitor
     assert_equal "Bruins", @stat_tracker.highest_scoring_visitor
   end
@@ -107,6 +161,24 @@ class LeagueStatisticsTest < Minitest::Test
     assert_equal 33, stat_tracker.count_of_teams
   end
 
+  def test_away_team_avg_goals_per_game
+    expected = {
+      '3' => 1.667,
+      '5' => 1.0,
+      '6' => 3.5
+    }
+    assert_equal expected, @stat_tracker.away_team_avg_goals_per_game
+  end
+
+  def test_total_games_by_name
+    expected = {
+      'Rangers'  => 5,
+      'Bruins'   => 8,
+      'Penguins' => 3
+    }
+    assert_equal expected, @stat_tracker.total_games_by_name
+  end
+
   def test_winningest_team
     files = {
       games:      './test/dummy_data/dummy_game.csv',
@@ -115,7 +187,43 @@ class LeagueStatisticsTest < Minitest::Test
     }
     stat_tracker = StatTracker.from_csv(files)
 
-    assert_equal 'Blackhawks', stat_tracker.winningest_team
+    assert_equal 'Bruins', stat_tracker.winningest_team
+  end
+
+  def test_away_wins_by_id
+    expected = {
+      "3" =>{:a_games=>2, :a_wins=>0},
+      "6" =>{:a_games=>2, :a_wins=>1},
+      "20"=>{:a_games=>2, :a_wins=>0},
+      "24"=>{:a_games=>2, :a_wins=>2},
+      "16"=>{:a_games=>2, :a_wins=>1},
+      "14"=>{:a_games=>2, :a_wins=>1}
+    }
+    assert_equal expected, @stat_tracker.away_wins_by_id
+  end
+
+  def test_home_wins_by_id
+    expected = {
+      "6" =>{:h_games=>2, :h_wins=>2},
+      "3" =>{:h_games=>2, :h_wins=>1},
+      "24"=>{:h_games=>2, :h_wins=>2},
+      "20"=>{:h_games=>2, :h_wins=>0},
+      "14"=>{:h_games=>2, :h_wins=>1},
+      "16"=>{:h_games=>2, :h_wins=>1}
+    }
+    assert_equal expected, @stat_tracker.home_wins_by_id
+  end
+
+  def test_home_away_win_pct
+    expected = {
+      "6" =>{:home_pct=>1.0, :away_pct=>0.5},
+      "3" =>{:home_pct=>0.5, :away_pct=>0.0},
+      "24"=>{:home_pct=>1.0, :away_pct=>1.0},
+      "20"=>{:home_pct=>0.0, :away_pct=>0.0},
+      "14"=>{:home_pct=>0.5, :away_pct=>0.5},
+      "16"=>{:home_pct=>0.5, :away_pct=>0.5}
+    }
+    assert_equal expected, @stat_tracker.home_away_win_pct
   end
 
   def test_best_fans
@@ -126,7 +234,7 @@ class LeagueStatisticsTest < Minitest::Test
     }
     stat_tracker = StatTracker.from_csv(files)
 
-    assert_equal 'Rangers', stat_tracker.best_fans
+      assert_equal 'Rangers', stat_tracker.best_fans
   end
 
   def test_worst_fans
@@ -137,6 +245,6 @@ class LeagueStatisticsTest < Minitest::Test
     }
     stat_tracker = StatTracker.from_csv(files)
 
-    assert_equal ['Lightning', 'Penguins', 'Sharks'], stat_tracker.worst_fans
+    assert_equal [], stat_tracker.worst_fans
   end
 end
