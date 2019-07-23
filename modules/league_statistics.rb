@@ -10,7 +10,7 @@ module LeagueStatistics
     goals_hash.each do |team, goals|
       goals_hash[team] = (goals.to_f / team_total_games_from_game_teams[team]).round(3)
     end
-    goals_hash
+    @avg_goals_hash ||= goals_hash
   end
 
   def best_offense
@@ -41,7 +41,7 @@ module LeagueStatistics
       total_goals = goals + team_away_goals_allowed[team]
       team_avg_goals[team] = total_goals.to_f / team_total_games_from_games[team]
     end
-    team_avg_goals
+    @team_avg_goals_hash ||= team_avg_goals
   end
 
   def best_defense
@@ -91,7 +91,7 @@ module LeagueStatistics
     goals_hash.each do |team, goals|
       goals_hash[team] = (goals.to_f / away_team_total_games[team]).round(3)
     end
-    goals_hash
+    @away_avg_goals_hash ||= goals_hash
   end
 
   def home_team_avg_goals_per_game
@@ -99,7 +99,7 @@ module LeagueStatistics
     goals_hash.each do |team, goals|
       goals_hash[team] = (goals.to_f / home_team_total_games[team]).round(3)
     end
-    goals_hash
+    @home_avg_goals_hash ||= goals_hash
   end
 
   def highest_scoring_visitor
@@ -137,13 +137,11 @@ module LeagueStatistics
   end
 
   def total_games_by_name
-    each_total_games = Hash.new(0)
-    @game_teams.each do |game_team|
-      each_total_games[get_team_name(game_team.team_id)] += 1
-    end
-    each_total_games
+    by_id = team_total_games_from_game_teams
+    by_name = Hash.new(0)
+    by_id.each { |id, val| by_name[get_team_name(id)] += val }
+    by_name
   end
-
 
   def winningest_team
     answer =  wins_per_team.map do |team, wins|
