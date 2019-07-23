@@ -89,6 +89,14 @@ class SeasonStatisticsTest < Minitest::Test
     assert actual.all? { |obj| obj.class == GameTeamsStats }
   end
 
+  def test_coach_win_percentage_per_season
+    expected = {
+      "John Tortorella" => 0.25,
+      "Claude Julien" => 0.75
+    }
+    assert_equal expected, @stat_tracker.coach_win_percentage_per_season("20122013")
+  end
+
   def test_winningest_coach
     assert_equal "Claude Julien", @stat_tracker.winningest_coach("20122013")
   end
@@ -101,19 +109,6 @@ class SeasonStatisticsTest < Minitest::Test
     assert_equal "Bruins", @stat_tracker.most_accurate_team("20122013")
   end
 
-  def test_least_accurate_team
-    assert_equal "Rangers", @stat_tracker.least_accurate_team("20122013")
-  end
-
-
-  def test_coach_win_percentage_per_season
-    expected = {
-      "John Tortorella" => 0.25,
-      "Claude Julien" => 0.75
-    }
-    assert_equal expected, @stat_tracker.coach_win_percentage_per_season("20122013")
-  end
-
   def test_shots_and_goals_per_season
     expected = {
       '3' => {shots: 128, goals: 9},
@@ -123,7 +118,15 @@ class SeasonStatisticsTest < Minitest::Test
   end
 
   def test_shot_goal_ratio_per_team
-    assert_equal ({"3"=>0.0703125, "6"=>0.08441558441558442}), @stat_tracker.shot_goal_ratio_per_team("20122013")
+    expected = {"3"=>0.0703, "6"=>0.0844}
+    actual = @stat_tracker.shot_goal_ratio_per_team("20122013")
+      .transform_values { |val| val.round(4) }
+
+    assert_equal expected, actual
+  end
+
+  def test_least_accurate_team
+    assert_equal "Rangers", @stat_tracker.least_accurate_team("20122013")
   end
 
   def test_team_hits
