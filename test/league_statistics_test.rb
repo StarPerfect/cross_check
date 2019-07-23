@@ -115,7 +115,7 @@ class LeagueStatisticsTest < Minitest::Test
     }
     stat_tracker = StatTracker.from_csv(files)
 
-    assert_equal 'Blackhawks', stat_tracker.winningest_team
+    assert_equal 'Bruins', stat_tracker.winningest_team
   end
 
   def test_best_fans
@@ -133,10 +133,10 @@ class LeagueStatisticsTest < Minitest::Test
     files = {
       games:      './test/dummy_data/dummy_game.csv',
       teams:      './test/dummy_data/dummy_team_info.csv',
-      game_teams: './test/dummy_data/dummy_game_teams_stats0.csv'
+      game_teams: './test/dummy_data/dummy_game_teams_stats.csv'
     }
     stat_tracker = StatTracker.from_csv(files)
 
-    assert_equal ['Lightning', 'Penguins', 'Sharks'], stat_tracker.worst_fans
+    assert_equal [], stat_tracker.worst_fans
   end
 end
