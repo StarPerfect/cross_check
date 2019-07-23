@@ -35,10 +35,8 @@ module SeasonStatistics
     reg = percents[:regular_season]
     post = percents[:playoff_games]
     post.each do |team, percent|
-      # require 'pry';binding.pry #should work with real data
       post[team] = percent - reg[team]
     end
-    post
   end
 
   def biggest_bust(season)
@@ -65,8 +63,7 @@ module SeasonStatistics
         totals[coach][:wins] += 1 if game.won
       end
     end
-    totals.transform_values! { |info| info[:wins].to_f / info[:games] }
-    totals
+    totals.transform_values { |info| info[:wins].to_f / info[:games] }
   end
 
   def winningest_coach(season)
@@ -96,11 +93,7 @@ module SeasonStatistics
   def shot_goal_ratio_per_team_per_season(season)
     shots = team_total_shots_per_season(season)
     goals = team_total_goals_per_season(season)
-
-    goals.each do |season, goal|
-      goals[season] = (goal.to_f / shots[season])
-    end
-    goals
+    goals.merge(shots) { |key, goal, shot| goal.to_f / shot}
   end
 
   def most_accurate_team(season)
