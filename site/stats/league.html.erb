@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" type="text/css" href="../style.css" >
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand active" href="../index.html">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+    <h3>League Stats</h3>
+    <p>There are <%= @stat_tracker.count_of_teams %> teams in total.</p>
+    <p>Best offense: <%= @stat_tracker.best_offense %></p>
+    <p>Worst offense: <%= @stat_tracker.worst_offense %></p>
+    <p>Best defense: <%= @stat_tracker.best_defense %></p>
+    <p>Worst defense: <%= @stat_tracker.worst_defense %></p>
+    <p>Highest scoring visitor: <%= @stat_tracker.highest_scoring_visitor %></p>
+    <p>Highest scoring home team: <%= @stat_tracker.highest_scoring_home_team %></p>
+    <p>Lowest scoring visitor: <%= @stat_tracker.lowest_scoring_visitor %></p>
+    <p>Lowest scoring home team: <%= @stat_tracker.lowest_scoring_home_team %></p>
+    <p>Winningest team: <%= @stat_tracker.winningest_team %></p>
+    <p>Best fans: <%= @stat_tracker.best_fans %></p>
+    <p>Worst fans: <%= @stat_tracker.worst_fans %></p>
+  </body>
+</html>

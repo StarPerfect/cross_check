@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id="home">
   <head>
    <!-- Required meta tags -->
    <meta charset="utf-8">
@@ -10,77 +10,32 @@
    <link rel="stylesheet" type="text/css" href="style.css" >
 
   </head>
-    <body style="margin:50">
-      <nav class="navbar navbar-dark bg-dark">
-        <span class="navbar-brand mb-0 h1">NHL STATS TRACKER</span>
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand active" href="#">NHL STATS TRACKER</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="stats/game.html">Game Stats <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="stats/league.html">League Stats</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="stats/team.html">Team Stats</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="stats/season.html">Season Stats</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="stats/season_sum.html">Seasonal Summary</a>
+            </li>
+          </ul>
+        </div>
       </nav>
-      <br/>
-
-      <h2 >
-        <span style="background-color:#99ccff">Game Stats</span>
-      </h2>
-      <br/>
-
-      <p>Highest total score: <%= @stat_tracker.highest_total_score %></p>
-      <p>Lowest total score: <%= @stat_tracker.lowest_total_score %></p>
-      <p>Biggest blowout: <%= @stat_tracker.biggest_blowout %></p>
-      <p>Percentage home wins: <%= @stat_tracker.percentage_home_wins %></p>
-      <p>Percentage visitor wins: <%= @stat_tracker.percentage_visitor_wins %></p>
-      <p>Count of games by season: <%= @stat_tracker.count_of_games_by_season %></p>
-      <p>Average goals per game: <%= @stat_tracker.average_goals_per_game %></p>
-      <p>Average goals by season: <%= @stat_tracker.average_goals_by_season %></p>
-
-      <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1">League Stats</span>
-      </nav>
-      <br/>
-
-      <p>There are <%= @stat_tracker.count_of_teams %> teams in total.</p>
-      <p>Best offense: <%= @stat_tracker.best_offense %></p>
-      <p>Worst offense: <%= @stat_tracker.worst_offense %></p>
-      <p>Best defense: <%= @stat_tracker.best_defense %></p>
-      <p>Worst defense: <%= @stat_tracker.worst_defense %></p>
-      <p>Highest scoring visitor: <%= @stat_tracker.highest_scoring_visitor %></p>
-      <p>Highest scoring home team: <%= @stat_tracker.highest_scoring_home_team %></p>
-      <p>Lowest scoring visitor: <%= @stat_tracker.lowest_scoring_visitor %></p>
-      <p>Lowest scoring home team: <%= @stat_tracker.lowest_scoring_home_team %></p>
-      <p>Winningest team: <%= @stat_tracker.winningest_team %></p>
-      <p>Best fans: <%= @stat_tracker.best_fans %></p>
-      <p>Worst fans: <%= @stat_tracker.worst_fans %></p>
-
-      <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1">Team Stats: Bruins</span>
-      </nav>
-      <br/>
-
-      <p>Team Info: <%= @stat_tracker.team_info("6") %></p>
-      <p>Best season: <%= @stat_tracker.best_season("6")  %></p>
-      <p>Worst season: <%= @stat_tracker.worst_season("6")  %></p>
-      <p>Average win %: <%= @stat_tracker.average_win_percentage("6")  %></p>
-      <p>Most goals scored: <%= @stat_tracker.most_goals_scored("6")  %></p>
-      <p>Fewest goals scored: <%= @stat_tracker.fewest_goals_scored("6")  %></p>
-      <p>Favorite opponent: <%= @stat_tracker.favorite_opponent("6")  %></p>
-      <p>Rival: <%= @stat_tracker.rival("6")  %></p>
-      <p>Biggest team blowout: <%= @stat_tracker.biggest_team_blowout("6")  %></p>
-      <p>Worst loss: <%= @stat_tracker.worst_loss("6")  %></p>
-      <p>head to head: <%= @stat_tracker.head_to_head("6")  %></p>
-      <p>Seasonal summary: <%= @stat_tracker.seasonal_summary("6")  %></p>
-
-      <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1">Season Stats: 2012-2013  OR 2013-2014</span>
-      </nav>
-      <br/>
-
-      <p>Biggest bust(2013-2014): <%= @stat_tracker.biggest_bust('20132014')  %></p>
-      <p>Biggest surprise(2013-2014): <%= @stat_tracker.biggest_surprise('20132014')   %></p>
-      <p>Winningest coach: <%= @stat_tracker.winningest_coach('20122013')   %></p>
-      <p>Worst coach: <%= @stat_tracker.worst_coach('20122013')   %></p>
-      <p>Most accurate team: <%= @stat_tracker.most_accurate_team('20122013')   %></p>
-      <p>Least accurate team: <%= @stat_tracker.least_accurate_team('20122013')  %></p>
-      <p>Most hits: <%= @stat_tracker.most_hits('20122013')   %></p>
-      <p>Fewest hits: <%= @stat_tracker.fewest_hits('20122013')  %></p>
-      <p>Power play goal %: <%= @stat_tracker.power_play_goal_percentage('20122013')  %></p>
-
     </body>
 
 </html>

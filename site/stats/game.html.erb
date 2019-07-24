@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" type="text/css" href="../style.css" >
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand active" href="../index.html">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+    <h3>Game Stats</h3>
+    <p>Highest total score: <%= @stat_tracker.highest_total_score %></p>
+    <p>Lowest total score: <%= @stat_tracker.lowest_total_score %></p>
+    <p>Biggest blowout: <%= @stat_tracker.biggest_blowout %></p>
+    <p>Percentage home wins: <%= @stat_tracker.percentage_home_wins %></p>
+    <p>Percentage visitor wins: <%= @stat_tracker.percentage_visitor_wins %></p>
+    <p>Count of games by season: <%= @stat_tracker.count_of_games_by_season %></p>
+    <p>Average goals per game: <%= @stat_tracker.average_goals_per_game %></p>
+    <p>Average goals by season: <%= @stat_tracker.average_goals_by_season %></p>
+</body>
+</html>
