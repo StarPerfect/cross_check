@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id="nhl">
   <head>
    <!-- Required meta tags -->
    <meta charset="utf-8">
@@ -29,6 +29,14 @@
     <p>Lowest scoring home team: <%= @stat_tracker.lowest_scoring_home_team %></p>
     <p>Winningest team: <%= @stat_tracker.winningest_team %></p>
     <p>Best fans: <%= @stat_tracker.best_fans %></p>
-    <p>Worst fans: <%= @stat_tracker.worst_fans %></p>
+    <p><% worst = @stat_tracker.worst_fans%></p>
+    <p>Worst fans: <%= worst.empty? ? 'No teams had better away records than home records' : worst %></p>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
   </body>
 </html>
