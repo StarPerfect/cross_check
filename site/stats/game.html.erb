@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html id="nhl">
+  <head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" type="text/css" href="../style.css" >
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand active" href="../index.html">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+    <h3>Game Stats</h3>
+    <p>Highest total score: <%= @stat_tracker.highest_total_score %></p>
+    <p>Lowest total score: <%= @stat_tracker.lowest_total_score %></p>
+    <p>Biggest blowout: <%= @stat_tracker.biggest_blowout %></p>
+    <p>Percentage home wins: <%= @stat_tracker.percentage_home_wins %></p>
+    <p>Percentage visitor wins: <%= @stat_tracker.percentage_visitor_wins %></p>
+    <p>Average goals per game: <%= @stat_tracker.average_goals_per_game %></p>
+    <p><% games = @stat_tracker.count_of_games_by_season %></p>
+    <p><% goals = @stat_tracker.average_goals_by_season%></p>
+    <h4>Games and Average Goals by Season</h4>
+    <table class="table table-striped col-sm-5">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Games in Season</th>
+          <th scope="col">Average Goals Per Game</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">2012-13</th>
+          <td><%= games['20122013']%></td>
+          <td><%= goals['20122013']%></td>
+        </tr>
+        <tr>
+          <th scope="row">2013-14</th>
+          <td><%= games['20132014']%></td>
+          <td><%= goals['20132014']%></td>
+        </tr>
+        <tr>
+          <th scope="row">2014-15</th>
+          <td><%= games['20142015']%></td>
+          <td><%= goals['20142015']%></td>
+        </tr><tr>
+          <th scope="row">2015-16</th>
+          <td><%= games['20152016']%></td>
+          <td><%= goals['20152016']%></td>
+        </tr><tr>
+          <th scope="row">2016-17</th>
+          <td><%= games['20162017']%></td>
+          <td><%= goals['20162017']%></td>
+        </tr><tr>
+          <th scope="row">2017-18</th>
+          <td><%= games['20172018']%></td>
+          <td><%= goals['20172018']%></td>
+        </tr>
+      </tbody>
+    </table>
+    <p><% goals = @stat_tracker.average_goals_by_season %></p>
+    <br/>
+    <br/>
+</body>
+</html>
