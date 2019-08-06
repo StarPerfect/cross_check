@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="nhl">
+<html>
   <head>
    <!-- Required meta tags -->
    <meta charset="utf-8">
@@ -10,33 +10,47 @@
    <link rel="stylesheet" type="text/css" href="../style.css" >
 
   </head>
-  <body>
+  <body class="nhl">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand active" href="../index.html">Home</a>
+      <a class="navbar-brand" href="../index.html">NHL STATS TRACKER</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="game.html">Game Stats</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="league.html">League Stats</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="team.html">Team Stats</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="season.html">Season Stats</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="season_sum.html">Seasonal Summary</a>
+          </li>
+        </ul>
+      </div>
     </nav>
-    <h3>League Stats</h3>
-    <p>There are 33 teams in total.</p>
-    <p>Best offense: Golden Knights</p>
-    <p>Worst offense: Sabres</p>
-    <p>Best defense: Kings</p>
-    <p>Worst defense: Coyotes</p>
-    <p>Highest scoring visitor: Capitals</p>
-    <p>Highest scoring home team: Golden Knights</p>
-    <p>Lowest scoring visitor: Sabres</p>
-    <p>Lowest scoring home team: Sabres</p>
-    <p>Winningest team: Golden Knights</p>
-    <p>Best fans: Coyotes</p>
-    <p></p>
-    <p>Worst fans: No teams had better away records than home records</p>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+    <div class="light-box">
+      <h3>League Stats</h3>
+      <p>There are 33 teams in total.</p>
+      <p>Best offense: Golden Knights</p>
+      <p>Worst offense: Sabres</p>
+      <p>Best defense: Kings</p>
+      <p>Worst defense: Coyotes</p>
+      <p>Highest scoring visitor: Capitals</p>
+      <p>Highest scoring home team: Golden Knights</p>
+      <p>Lowest scoring visitor: Sabres</p>
+      <p>Lowest scoring home team: Sabres</p>
+      <p>Winningest team: Golden Knights</p>
+      <p>Best fans: Coyotes</p>
+      <p></p>
+      <p>Worst fans: No teams had better away records than home records</p>
+    </div>
   </body>
 </html>
