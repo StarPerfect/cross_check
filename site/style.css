@@ -1,4 +1,8 @@
-#home {
+html{
+  height: 100%;
+}
+
+.home {
   background: url("http://chl-wordpress-uploads.s3.amazonaws.com/app/uploads/2018/04/12153335/QAlumin2018NHLPlayoffs-1024x576.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -6,47 +10,29 @@
   background-size: cover;
 }
 
-p {
- margin-top: 10px;
- margin-left: 80px;
- margin-right: 80px;
-
-}
-
-body {
-  margin: 50;
-}
-
-h3 {
-  margin: 20px;
-}
-
-h4 {
-  margin: 20px
-}
-
-table {
-  margin: 20px;
-}
-
-th {
-  width: 25%
-}
-
-#avalanche {
+.avalanche {
   background: url("https://media.graytvinc.com/images/810*455/avsweb+31.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  opacity: 0.8;
 }
 
-#nhl {
+.nhl {
   background: url("https://wallpapercave.com/wp/Byl8xV1.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+.light-box {
+  background-color: white;
   opacity: 0.8;
+  padding: 30px 0px 50px 30px;
+  min-height: 100vh;
+}
+
+th {
+  width: 25%;
 }

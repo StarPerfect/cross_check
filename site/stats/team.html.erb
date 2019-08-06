@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="avalanche">
+<html>
   <head>
    <!-- Required meta tags -->
    <meta charset="utf-8">
@@ -10,7 +10,7 @@
    <link rel="stylesheet" type="text/css" href="../style.css" >
 
   </head>
-  <body>
+  <body class="avalanche">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="../index.html">NHL STATS TRACKER</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,181 +36,181 @@
         </ul>
       </div>
     </nav>
-    <h3>Team Stats: Avalanche</h3>
-    <p><% info = @stat_tracker.team_info("21") %></p>
-    <h4>Info</h4>
-    <table class="table col-sm-6">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">Team ID</th>
-          <th scope="col">Franchise ID</th>
-          <th scope="col">Short Name</th>
-          <th scope="col">Team Name</th>
-          <th scope="col">Abbreviation</th>
-          <th scope="col">Link</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row"></th>
-          <td><%= info['team_id']%></td>
-          <td><%= info['franchise_id']%></td>
-          <td><%= info['short_name']%></td>
-          <td><%= info['team_name']%></td>
-          <td><%= info['abbreviation']%></td>
-          <td><%= info['link']%></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="light-box">
+      <h3>Team Stats: Avalanche</h3>
+      <p><% info = @stat_tracker.team_info("21") %></p>
+      <h4>Info</h4>
+      <table class="table col-sm-6">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Team ID</th>
+            <th scope="col">Franchise ID</th>
+            <th scope="col">Short Name</th>
+            <th scope="col">Team Name</th>
+            <th scope="col">Abbreviation</th>
+            <th scope="col">Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"></th>
+            <td><%= info['team_id']%></td>
+            <td><%= info['franchise_id']%></td>
+            <td><%= info['short_name']%></td>
+            <td><%= info['team_name']%></td>
+            <td><%= info['abbreviation']%></td>
+            <td><%= info['link']%></td>
+          </tr>
+        </tbody>
+      </table>
 
-    <p>Best season: <%= @stat_tracker.best_season("21")  %></p>
-    <p>Worst season: <%= @stat_tracker.worst_season("21")  %></p>
-    <p>Average win %: <%= @stat_tracker.average_win_percentage("21")  %></p>
-    <p>Most goals scored: <%= @stat_tracker.most_goals_scored("21")  %></p>
-    <p>Fewest goals scored: <%= @stat_tracker.fewest_goals_scored("21")  %></p>
-    <p>Favorite opponent: <%= @stat_tracker.favorite_opponent("21")  %></p>
-    <p>Rival: <%= @stat_tracker.rival("21")  %></p>
-    <p>Biggest team blowout: <%= @stat_tracker.biggest_team_blowout("21")  %></p>
-    <p>Worst loss: <%= @stat_tracker.worst_loss("21")  %></p>
-    <p><% h2h = @stat_tracker.head_to_head("21")%></p>
-    <p><% names = h2h.keys.sort%></p>
-    <h4>Head to Head Stats</h4>
-    <table class="table table-striped col-sm-4">
-      <thead>
-        <tr>
-          <th scope="col">Team Name</th>
-          <th scope="col">Win Percent Against</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row"><%= names[0]%></th>
-          <td> <%= h2h[names[0]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[1]%></th>
-          <td> <%= h2h[names[1]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[2]%></th>
-          <td> <%= h2h[names[2]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[3]%></th>
-          <td> <%= h2h[names[3]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[4]%></th>
-          <td> <%= h2h[names[4]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[5]%></th>
-          <td> <%= h2h[names[5]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[6]%></th>
-          <td> <%= h2h[names[6]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[7]%></th>
-          <td> <%= h2h[names[7]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[8]%></th>
-          <td> <%= h2h[names[8]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[9]%></th>
-          <td> <%= h2h[names[9]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[10]%></th>
-          <td> <%= h2h[names[10]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[11]%></th>
-          <td> <%= h2h[names[11]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[12]%></th>
-          <td> <%= h2h[names[12]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[13]%></th>
-          <td> <%= h2h[names[13]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[14]%></th>
-          <td> <%= h2h[names[14]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[15]%></th>
-          <td> <%= h2h[names[15]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[16]%></th>
-          <td> <%= h2h[names[16]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[17]%></th>
-          <td> <%= h2h[names[17]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[18]%></th>
-          <td> <%= h2h[names[18]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[19]%></th>
-          <td> <%= h2h[names[19]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[20]%></th>
-          <td> <%= h2h[names[20]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[21]%></th>
-          <td> <%= h2h[names[21]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[22]%></th>
-          <td> <%= h2h[names[22]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[23]%></th>
-          <td> <%= h2h[names[23]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[24]%></th>
-          <td> <%= h2h[names[24]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[25]%></th>
-          <td> <%= h2h[names[25]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[26]%></th>
-          <td> <%= h2h[names[26]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[27]%></th>
-          <td> <%= h2h[names[27]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[28]%></th>
-          <td> <%= h2h[names[28]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[29]%></th>
-          <td> <%= h2h[names[29]]%></td>
-        </tr>
-        <tr>
-          <th scope="row"><%= names[30]%></th>
-          <td> <%= h2h[names[30]]%></td>
-        </tr>
-      </tbody>
-    </table>
-    <br/>
-    <br/>
+      <p>Best season: <%= @stat_tracker.best_season("21")  %></p>
+      <p>Worst season: <%= @stat_tracker.worst_season("21")  %></p>
+      <p>Average win %: <%= @stat_tracker.average_win_percentage("21")  %></p>
+      <p>Most goals scored: <%= @stat_tracker.most_goals_scored("21")  %></p>
+      <p>Fewest goals scored: <%= @stat_tracker.fewest_goals_scored("21")  %></p>
+      <p>Favorite opponent: <%= @stat_tracker.favorite_opponent("21")  %></p>
+      <p>Rival: <%= @stat_tracker.rival("21")  %></p>
+      <p>Biggest team blowout: <%= @stat_tracker.biggest_team_blowout("21")  %></p>
+      <p>Worst loss: <%= @stat_tracker.worst_loss("21")  %></p>
+      <p><% h2h = @stat_tracker.head_to_head("21")%></p>
+      <p><% names = h2h.keys.sort%></p>
+      <h4>Head to Head Stats</h4>
+      <table class="table table-striped col-sm-4">
+        <thead>
+          <tr>
+            <th scope="col">Team Name</th>
+            <th scope="col">Win Percent Against</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><%= names[0]%></th>
+            <td> <%= h2h[names[0]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[1]%></th>
+            <td> <%= h2h[names[1]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[2]%></th>
+            <td> <%= h2h[names[2]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[3]%></th>
+            <td> <%= h2h[names[3]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[4]%></th>
+            <td> <%= h2h[names[4]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[5]%></th>
+            <td> <%= h2h[names[5]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[6]%></th>
+            <td> <%= h2h[names[6]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[7]%></th>
+            <td> <%= h2h[names[7]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[8]%></th>
+            <td> <%= h2h[names[8]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[9]%></th>
+            <td> <%= h2h[names[9]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[10]%></th>
+            <td> <%= h2h[names[10]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[11]%></th>
+            <td> <%= h2h[names[11]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[12]%></th>
+            <td> <%= h2h[names[12]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[13]%></th>
+            <td> <%= h2h[names[13]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[14]%></th>
+            <td> <%= h2h[names[14]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[15]%></th>
+            <td> <%= h2h[names[15]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[16]%></th>
+            <td> <%= h2h[names[16]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[17]%></th>
+            <td> <%= h2h[names[17]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[18]%></th>
+            <td> <%= h2h[names[18]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[19]%></th>
+            <td> <%= h2h[names[19]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[20]%></th>
+            <td> <%= h2h[names[20]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[21]%></th>
+            <td> <%= h2h[names[21]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[22]%></th>
+            <td> <%= h2h[names[22]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[23]%></th>
+            <td> <%= h2h[names[23]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[24]%></th>
+            <td> <%= h2h[names[24]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[25]%></th>
+            <td> <%= h2h[names[25]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[26]%></th>
+            <td> <%= h2h[names[26]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[27]%></th>
+            <td> <%= h2h[names[27]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[28]%></th>
+            <td> <%= h2h[names[28]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[29]%></th>
+            <td> <%= h2h[names[29]]%></td>
+          </tr>
+          <tr>
+            <th scope="row"><%= names[30]%></th>
+            <td> <%= h2h[names[30]]%></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>

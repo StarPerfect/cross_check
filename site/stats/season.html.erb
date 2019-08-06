@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="nhl">
+<html>
   <head>
    <!-- Required meta tags -->
    <meta charset="utf-8">
@@ -10,7 +10,7 @@
    <link rel="stylesheet" type="text/css" href="../style.css" >
 
   </head>
-  <body>
+  <body class="nhl">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="../index.html">NHL STATS TRACKER</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,34 +36,17 @@
         </ul>
       </div>
     </nav>
-    <h3>Season Stats</h3>
-    <p>Biggest bust(2013-2014): <%= @stat_tracker.biggest_bust('20132014')  %></p>
-    <p>Biggest surprise(2013-2014): <%= @stat_tracker.biggest_surprise('20132014')   %></p>
-    <p>Winningest coach: <%= @stat_tracker.winningest_coach('20122013')   %></p>
-    <p>Worst coach: <%= @stat_tracker.worst_coach('20122013')   %></p>
-    <p>Most accurate team: <%= @stat_tracker.most_accurate_team('20122013')   %></p>
-    <p>Least accurate team: <%= @stat_tracker.least_accurate_team('20122013')  %></p>
-    <p>Most hits: <%= @stat_tracker.most_hits('20122013')   %></p>
-    <p>Fewest hits: <%= @stat_tracker.fewest_hits('20122013')  %></p>
-    <p>Power play goal %: <%= @stat_tracker.power_play_goal_percentage('20122013')  %></p>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+    <div class="light-box">
+      <h3>Season Stats</h3>
+      <p>Biggest bust(2013-2014): <%= @stat_tracker.biggest_bust('20132014')  %></p>
+      <p>Biggest surprise(2013-2014): <%= @stat_tracker.biggest_surprise('20132014')   %></p>
+      <p>Winningest coach: <%= @stat_tracker.winningest_coach('20122013')   %></p>
+      <p>Worst coach: <%= @stat_tracker.worst_coach('20122013')   %></p>
+      <p>Most accurate team: <%= @stat_tracker.most_accurate_team('20122013')   %></p>
+      <p>Least accurate team: <%= @stat_tracker.least_accurate_team('20122013')  %></p>
+      <p>Most hits: <%= @stat_tracker.most_hits('20122013')   %></p>
+      <p>Fewest hits: <%= @stat_tracker.fewest_hits('20122013')  %></p>
+      <p>Power play goal %: <%= @stat_tracker.power_play_goal_percentage('20122013')  %></p>
+    </div>
   </body>
 </html>

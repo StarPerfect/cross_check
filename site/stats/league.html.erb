@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="nhl">
+<html>
   <head>
    <!-- Required meta tags -->
    <meta charset="utf-8">
@@ -10,7 +10,7 @@
    <link rel="stylesheet" type="text/css" href="../style.css" >
 
   </head>
-  <body>
+  <body class="nhl">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="../index.html">NHL STATS TRACKER</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,26 +36,21 @@
         </ul>
       </div>
     </nav>
-    <h3>League Stats</h3>
-    <p>There are <%= @stat_tracker.count_of_teams %> teams in total.</p>
-    <p>Best offense: <%= @stat_tracker.best_offense %></p>
-    <p>Worst offense: <%= @stat_tracker.worst_offense %></p>
-    <p>Best defense: <%= @stat_tracker.best_defense %></p>
-    <p>Worst defense: <%= @stat_tracker.worst_defense %></p>
-    <p>Highest scoring visitor: <%= @stat_tracker.highest_scoring_visitor %></p>
-    <p>Highest scoring home team: <%= @stat_tracker.highest_scoring_home_team %></p>
-    <p>Lowest scoring visitor: <%= @stat_tracker.lowest_scoring_visitor %></p>
-    <p>Lowest scoring home team: <%= @stat_tracker.lowest_scoring_home_team %></p>
-    <p>Winningest team: <%= @stat_tracker.winningest_team %></p>
-    <p>Best fans: <%= @stat_tracker.best_fans %></p>
-    <p><% worst = @stat_tracker.worst_fans%></p>
-    <p>Worst fans: <%= worst.empty? ? 'No teams had better away records than home records' : worst %></p>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+    <div class="light-box">
+      <h3>League Stats</h3>
+      <p>There are <%= @stat_tracker.count_of_teams %> teams in total.</p>
+      <p>Best offense: <%= @stat_tracker.best_offense %></p>
+      <p>Worst offense: <%= @stat_tracker.worst_offense %></p>
+      <p>Best defense: <%= @stat_tracker.best_defense %></p>
+      <p>Worst defense: <%= @stat_tracker.worst_defense %></p>
+      <p>Highest scoring visitor: <%= @stat_tracker.highest_scoring_visitor %></p>
+      <p>Highest scoring home team: <%= @stat_tracker.highest_scoring_home_team %></p>
+      <p>Lowest scoring visitor: <%= @stat_tracker.lowest_scoring_visitor %></p>
+      <p>Lowest scoring home team: <%= @stat_tracker.lowest_scoring_home_team %></p>
+      <p>Winningest team: <%= @stat_tracker.winningest_team %></p>
+      <p>Best fans: <%= @stat_tracker.best_fans %></p>
+      <p><% worst = @stat_tracker.worst_fans%></p>
+      <p>Worst fans: <%= worst.empty? ? 'No teams had better away records than home records' : worst %></p>
+    </div>
   </body>
 </html>
